@@ -5,6 +5,13 @@
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 
+enum update_status
+{
+	UPDATE_CONTINUE = 1,
+	UPDATE_STOP,
+	UPDATE_ERROR
+};
+
 void log(const char file[], int line, const char* format, ...)
 {
 	static char tmp_string[4096];
@@ -19,4 +26,4 @@ void log(const char file[], int line, const char* format, ...)
 	OutputDebugString(tmp_string2);
 }
 
-#endif __GLOBALS_H__
+#endif // !__GLOBALS_H__
