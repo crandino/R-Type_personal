@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <stdio.h>
+
 #include "Globals.h"
 #include "Application.h"
 
