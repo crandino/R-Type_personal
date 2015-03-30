@@ -1,3 +1,7 @@
+#include <Windows.h>
+#include <stdio.h>
+#include "Globals.h"
+
 #include "SDL2-2.0.3\include\SDL.h"
 
 // pragma is an exclusive extension of Visual Studio,
@@ -16,7 +20,21 @@ Linker/Input/System/Subsystem/ choose
 Windows (/SUBSYSTEM:WINDOWS)
 */
 
+enum main_states
+{
+	MAIN_CREATION,
+	MAIN_START,
+	MAIN_UPDATE,
+	MAIN_FINISH,
+	MAIN_EXIT
+};
+
+
 int main(int argc, char** argv)
 {
+	LOG("Starting game '%s'...", TITLE);
+	int main_return = EXIT_FAILURE;
+	main_states state = MAIN_CREATION;
+	
 	return 0;
 }
