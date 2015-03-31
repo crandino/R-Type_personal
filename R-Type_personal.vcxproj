@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="DList.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Module.h" />
   </ItemGroup>

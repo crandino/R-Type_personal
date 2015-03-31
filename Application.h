@@ -2,6 +2,7 @@
 #define __APPLICATION_H__
 
 #include "DList.h"
+#include "Module.h"
 
 class Application
 {
@@ -17,7 +18,5 @@ public:
 	update_status update() { return UPDATE_CONTINUE; }
 	bool cleanUp() { return true; }
 };
-
-
 
 #endif // !__APPLICATION_H__
