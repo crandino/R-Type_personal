@@ -1,6 +1,12 @@
+//=================================
+// include guard
+//=================================
+// forward declared dependencies
+//=================================
+// included dependencies
 #include "ModuleWindow.h"
-#include "Globals.h"
-#include "SDL2-2.0.3\include\SDL.h"
+//=================================
+// the actual class
 
 ModuleWindow::ModuleWindow(Application *app) : Module(app)
 {

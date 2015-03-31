@@ -1,9 +1,15 @@
+//=================================
+// include guard
 #ifndef __MODULE_H__
 #define __MODULE_H__
-
-//#include "Globals.h"
-
-class Application;
+//=================================
+// forward declared dependencies
+class Application; 
+//=================================
+// included dependencies
+#include "Globals.h"
+//=================================
+// the actual class
 
 class Module
 {
@@ -12,8 +18,7 @@ public:
 	Application *app;
 
 	Module(Application *parent) : app(parent)
-	{
-	}
+	{	}
 
 	virtual bool init() { return true; }
 	virtual update_status update() { return UPDATE_CONTINUE; }

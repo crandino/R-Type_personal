@@ -1,7 +1,7 @@
 //=================================
 // include guard
-#ifndef __MODULEWINDOW_H__
-#define __MODULEWINDOW_H__
+#ifndef __MODULERENDER_H__
+#define __MODULERENDER_H__
 //=================================
 // forward declared dependencies
 class Application;
@@ -12,22 +12,22 @@ class Application;
 //=================================
 // the actual class
 
-class ModuleWindow : public Module
+class ModuleRender : public Module
 {
-
 public:
 
-	//The window we'll be rendering to
-	SDL_Window *window;
-	//The surface contained by the window
-	SDL_Surface *screen_surface;
+	SDL_Renderer *renderer;
+	SDL_Rect camera;
 
-	ModuleWindow(Application*);
-	virtual ~ModuleWindow();
+	ModuleRender(Application*);
+	~ModuleRender();
 
 	bool init();
+	update_status update();
 	bool cleanUp();
 
+	bool blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, float speed = 1.0f);
+	
 };
 
-#endif // !__MODULEWINDOW_H__
+#endif // !__MODULERENDER_H__

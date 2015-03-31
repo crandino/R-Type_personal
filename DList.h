@@ -1,5 +1,14 @@
+//=================================
+// include guard
 #ifndef __DLIST_H__
 #define __DLIST_H__
+//=================================
+// forward declared dependencies
+//=================================
+// included dependencies
+#include <stdio.h>
+//=================================
+// the actual class
 
 template <class TYPE>
 struct doubleNode {

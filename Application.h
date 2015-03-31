@@ -1,10 +1,18 @@
+//=================================
+// include guard
 #ifndef __APPLICATION_H__
 #define __APPLICATION_H__
-
+//=================================
+// forward declared dependencies
+class Module;
+class ModuleWindow;
+class ModuleRender;
+//=================================
+// included dependencies
 #include "DList.h"
-//#include "Globals.h"
-#include "Module.h"
-#include "ModuleWindow.h"
+#include "Globals.h"
+//=================================
+// the actual class
 
 class Application
 {
@@ -16,6 +24,7 @@ private:
 public:
 	
 	ModuleWindow *window;
+	ModuleRender *renderer;
 
 	Application();
 	~Application();
