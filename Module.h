@@ -1,10 +1,19 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+//#include "Globals.h"
+
+class Application;
+
 class Module
 {
 public:
-	Module() {};
+
+	Application *app;
+
+	Module(Application *parent) : app(parent)
+	{
+	}
 
 	virtual bool init() { return true; }
 	virtual update_status update() { return UPDATE_CONTINUE; }

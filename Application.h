@@ -2,21 +2,27 @@
 #define __APPLICATION_H__
 
 #include "DList.h"
+//#include "Globals.h"
 #include "Module.h"
+#include "ModuleWindow.h"
 
 class Application
 {
 private:
+
 	DList<Module*> list_modules;
 	void addModule(Module*);
 
 public:
-	Application() {};
-	~Application() {};
+	
+	ModuleWindow *window;
 
-	bool init() { return true; }
-	update_status update() { return UPDATE_CONTINUE; }
-	bool cleanUp() { return true; }
+	Application();
+	~Application();
+
+	bool init();
+	update_status update();
+	bool cleanUp();
 };
 
 #endif // !__APPLICATION_H__
