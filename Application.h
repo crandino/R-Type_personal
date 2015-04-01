@@ -7,6 +7,7 @@
 class Module;
 class ModuleWindow;
 class ModuleRender;
+class ModuleTextures;
 class ModuleInput;
 //=================================
 // included dependencies
@@ -26,6 +27,7 @@ public:
 	
 	ModuleWindow *window;
 	ModuleRender *renderer;
+	ModuleTextures *textures;
 	ModuleInput *input;
 
 	Application();

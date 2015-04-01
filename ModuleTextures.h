@@ -1,29 +1,29 @@
 //=================================
 // include guard
-#ifndef __MODULEINPUT_H__
-#define __MODULEINPUT_H__
+#ifndef __MODULETEXTURES_H__
+#define __MODULETEXTURES_H__
 //=================================
 // forward declared dependencies
 //=================================
 // included dependencies
 #include "Module.h"
+#include "DList.h"
 #include "SDL\include\SDL.h"
 //=================================
 // the actual class
 
-class ModuleInput : public Module
+class ModuleTextures : public Module
 {
 public:
 
-	const Uint8 *keyboard;
+	SDL_Texture* const load(const char* path);
+	DList<SDL_Texture*> textures;
 
-	ModuleInput(Application*);
-	~ModuleInput();
+	ModuleTextures(Application*);
+	~ModuleTextures();
 
 	bool init();
-	update_status preUpdate();
 	bool cleanUp();
-
 };
 
-#endif // !__MODULEINPUT_H__
+#endif //!__MODULETEXTURES_H__
