@@ -21,7 +21,10 @@ public:
 	{	}
 
 	virtual bool init() { return true; }
+	virtual bool start() { return true; }
+	virtual update_status preUpdate() { return UPDATE_CONTINUE; }
 	virtual update_status update() { return UPDATE_CONTINUE; }
+	virtual update_status postUpdate() { return UPDATE_CONTINUE; }
 	virtual bool cleanUp() { return true; }
 
 };

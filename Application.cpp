@@ -3,7 +3,6 @@
 //=================================
 // included dependencies
 #include "Application.h"
-//#include "Module.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 //=================================
@@ -37,9 +36,20 @@ bool Application::init()
 		item = item->next;
 	}
 
+	// After all initialization, we start each module
+	LOG("Application Start -----------------");
+	item = list_modules.getFirst();
+
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->start();
+		item = item->next;
+	}
+	
 	return ret;
 }
 
+// Update is split into 3: preUpdate, update and postUpdate.
 update_status Application::update()
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -47,7 +57,23 @@ update_status Application::update()
 
 	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
+		ret = item->data->preUpdate();
+		item = item->next;
+	}
+
+	item = list_modules.getFirst();
+
+	while (item != NULL && ret == UPDATE_CONTINUE)
+	{
 		ret = item->data->update();
+		item = item->next;
+	}
+
+	item = list_modules.getFirst();
+
+	while (item != NULL && ret == UPDATE_CONTINUE)
+	{
+		ret = item->data->postUpdate();
 		item = item->next;
 	}
 
