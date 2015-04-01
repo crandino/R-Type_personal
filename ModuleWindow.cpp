@@ -5,6 +5,7 @@
 //=================================
 // included dependencies
 #include "ModuleWindow.h"
+#include "Application.h"
 //=================================
 // the actual class
 

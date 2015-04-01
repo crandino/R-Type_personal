@@ -3,6 +3,8 @@
 //=================================
 // included dependencies
 #include "ModuleRender.h"
+#include "ModuleWindow.h"
+#include "Application.h"
 //=================================
 // the actual class
 
