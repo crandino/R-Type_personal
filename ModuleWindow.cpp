@@ -1,12 +1,10 @@
 //=================================
-// include guard
-//=================================
 // forward declared dependencies
 //=================================
 // included dependencies
 #include "ModuleWindow.h"
 //=================================
-// the actual class
+// the actual code
 
 ModuleWindow::ModuleWindow(Application *app) : Module(app)
 {

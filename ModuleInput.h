@@ -1,10 +1,9 @@
 //=================================
 // include guard
-#ifndef __MODULERENDER_H__
-#define __MODULERENDER_H__
+#ifndef __MODULEINPUT_H__
+#define __MODULEINPUT_H__
 //=================================
 // forward declared dependencies
-//class Application;
 //=================================
 // included dependencies
 #include "Module.h"
@@ -12,22 +11,19 @@
 //=================================
 // the actual class
 
-class ModuleRender : public Module
+class ModuleInput : public Module
 {
 public:
 
-	SDL_Renderer *renderer;
-	SDL_Rect camera;
+	const Uint8 *keyboard;
 
-	ModuleRender(Application*);
-	~ModuleRender();
+	ModuleInput(Application*);
+	~ModuleInput();
 
 	bool init();
-	update_status update();
+	update_status preUpdate();
 	bool cleanUp();
 
-	bool blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, float speed = 1.0f);
-	
 };
 
-#endif // !__MODULERENDER_H__
+#endif // !__MODULEINPUT_H__

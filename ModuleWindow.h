@@ -4,7 +4,7 @@
 #define __MODULEWINDOW_H__
 //=================================
 // forward declared dependencies
-class Application;
+//class Application;
 //=================================
 // included dependencies
 #include "Module.h"

@@ -7,6 +7,7 @@
 class Module;
 class ModuleWindow;
 class ModuleRender;
+class ModuleInput;
 //=================================
 // included dependencies
 #include "DList.h"
@@ -25,6 +26,7 @@ public:
 	
 	ModuleWindow *window;
 	ModuleRender *renderer;
+	ModuleInput *input;
 
 	Application();
 	~Application();

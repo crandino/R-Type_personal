@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
+#include "ModuleInput.h"
 //=================================
 // the actual class
 
@@ -15,12 +16,16 @@ Application::Application()
 
 	renderer = new ModuleRender(this);
 	addModule(renderer);
+
+	input = new ModuleInput(this);
+	addModule(input);
 }
 
 Application::~Application()
 {
 	delete window;
 	delete renderer;
+	delete input;
 }
 
 bool Application::init()

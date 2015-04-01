@@ -6,8 +6,7 @@
 #include "ModuleWindow.h"
 #include "Application.h"
 //=================================
-// the actual class
-
+// the actual code
 ModuleRender::ModuleRender(Application *app) : Module(app)
 {
 	renderer = NULL;
