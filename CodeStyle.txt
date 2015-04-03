@@ -1,0 +1,14 @@
+Code Style for R-TYPE project
+
+Authors:
+Carlos Randino
+Daniel Triviño
+Jordi Nunes
+Roger Olasz
+
+Variables:
+
+Classes:
+
+Methods:
+

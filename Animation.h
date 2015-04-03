@@ -36,5 +36,4 @@ public:
 };
 
 
-
 #endif // !__ANIMATION_H__
