@@ -2,6 +2,7 @@
 // forward declared dependencies
 //=================================
 // included dependencies
+#include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "SDL_image/include/SDL_image.h"
