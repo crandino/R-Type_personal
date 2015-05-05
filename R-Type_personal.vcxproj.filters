@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Containers">
       <UniqueIdentifier>{9cb59a4c-75e6-453a-94ec-e8121963d7e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{c9506f77-2112-4330-9588-fb5ad4167a7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CodeStyle.txt">
@@ -85,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="Point2d.h">
       <Filter>Header Files\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="PataEnemy.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
