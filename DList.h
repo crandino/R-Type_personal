@@ -15,51 +15,63 @@ struct doubleNode {
 	TYPE data;
 	doubleNode<TYPE>* next;
 	doubleNode<TYPE>* previous;
+
+	inline doubleNode(const TYPE &_data)
+	{
+		data = _data;
+		next = previous = NULL;
+	}
+
+	~doubleNode()
+	{ }
 };
 
 template <class TYPE>
 class DList {
 
 private:
+
 	doubleNode<TYPE>* start;
+	doubleNode<TYPE>* end;
+	unsigned int size;
 
 public:
-	DList()
+
+	inline DList()
 	{
-		start = NULL;
+		start = end = NULL;
+		size = 0;
+	}
+
+	~DList()
+	{
+		clear();
 	}
 
 	unsigned int count() const
 	{
-		unsigned int counter = 0;
-		doubleNode<TYPE>* tmp = start;
-		while (tmp != NULL)
-		{
-			tmp = tmp->next;
-			counter++;
-		}
-		return counter;
+		return size;
 	}
 
-	void add(TYPE _data)
+	unsigned int add(const TYPE &new_data)
 	{
-		doubleNode<TYPE>* new_node = new doubleNode<TYPE>;
-		new_node->data = _data;
-		new_node->next = NULL;
+		doubleNode<TYPE> *new_node;
+		new_node = new doubleNode<TYPE>(new_data);
+		new_node->data = new_data;
 
 		if (start != NULL)
 		{
-			doubleNode<TYPE>* tmp = start;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new_node;
-			new_node->previous = tmp;
+			new_node->previous = end;
+			end->next = new_node;
+			end = new_node;
 		}
 		else
 		{
-			new_node->previous = NULL;
-			start = new_node;
+			start = end = new_node;
 		}
+			
+		return (++size);
+	
 	}
 
 	doubleNode<TYPE>* getNodeAtPos(unsigned int _pos) const
@@ -80,49 +92,73 @@ public:
 		return NULL;
 	}
 
-	bool del(doubleNode<TYPE>* _node)
+	/**
+	* Find by index (by Ricard)
+	*/
+	bool at(unsigned int index, TYPE &new_data) const
 	{
-		if (start != NULL && _node != NULL)
+		bool ret = false;
+		unsigned int i = 0;
+		doubleNode<TYPE>*   searching_node = start;
+
+		for (unsigned int i = 0; i < index - 1 && searching_node != NULL; ++i)
+			searching_node = searching_node->next;
+
+		if (searching_node != NULL)
 		{
-			if (start != _node)
+			ret = true;
+			new_data = searching_node->data;
+		}
+
+		return ret;
+	}
+
+	bool del(doubleNode<TYPE> *node_to_delete)
+	{
+		if (start != NULL)
+		{
+			if (node_to_delete->previous != NULL)
 			{
-				doubleNode<TYPE>* tmp = start;
-				while (tmp->next != _node)
-					tmp = tmp->next;
-				tmp->next = _node->next;
-				if (_node->next != NULL)
-					_node->next->previous = tmp;
+				node_to_delete->previous->next = node_to_delete->next;
+				if (node_to_delete->next != NULL)
+					node_to_delete->next->previous = node_to_delete->previous;
+				else
+					end = node_to_delete->previous;
 			}
 			else
 			{
-				if (_node->next != NULL)
+				if (node_to_delete->next != NULL)
 				{
-					start = _node->next;
-					_node->next->previous = NULL;
+					start = node_to_delete->next;
+					node_to_delete->next->previous = NULL;
 				}
 				else
-					start = NULL;
+					start = end = NULL;
 			}
-			delete _node;
+
+			delete node_to_delete;
+			--size;
 			return true;
 		}
 		return false;
 	}
 
-	bool delAll() {
+	void clear()
+	{
 
-		if (start != NULL)
+		doubleNode<TYPE> *item = start;
+		doubleNode<TYPE> *item_next;
+
+		while (item != NULL)
 		{
-			while (start->next != NULL)
-			{
-				doubleNode<TYPE>* node_to_delete = start;
-				start = start->next;
-				delete node_to_delete;
-			}
-			start = NULL;
-			return true;
+			item_next = item->next;
+			delete item;
+			item = item_next;			
 		}
-		return false;
+
+		start = end = NULL;
+		size = 0;
+	
 	}
 
 	doubleNode<TYPE>* getFirst() const
@@ -132,12 +168,7 @@ public:
 
 	doubleNode<TYPE>* getLast() const
 	{
-		doubleNode<TYPE>* tmp = start;
-		while (tmp->next != NULL)
-		{
-			tmp = tmp->next;
-		}
-		return tmp;
+		return end;
 	}
 
 	void info() const

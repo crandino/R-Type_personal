@@ -7,22 +7,59 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleSceneSpace.h"
+#include "ModulePlayer.h"
+#include "ModuleEnemy.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleSceneGameOver.h"
+#include "ModuleSceneWin.h"
+#include "ModuleParticles.h"
+#include "ModuleCollision.h"
+#include "ModuleFadeToBlack.h"
 //=================================
 // the actual class
 
 Application::Application()
 {
 	window = new ModuleWindow(this);
-	addModule(window);
-
 	renderer = new ModuleRender(this);
-	addModule(renderer);
-
 	textures = new ModuleTextures(this);
-	addModule(textures);
-
 	input = new ModuleInput(this);
+	audio = new ModuleAudio(this);
+	scene = new ModuleSceneSpace(this, false);
+	player = new ModulePlayer(this, false);
+	enemy = new ModuleEnemy(this, false);
+	scene_intro = new ModuleSceneIntro(this, true);
+	scene_over = new ModuleSceneGameOver(this, false);
+	scene_win = new ModuleSceneWin(this, false);
+	particles = new ModuleParticles(this, false);
+	collision = new ModuleCollision(this, false);
+	fade = new ModuleFadeToBlack(this);
+
+	// Main modules
+	addModule(window);
+	addModule(renderer);
+	addModule(textures);
 	addModule(input);
+	addModule(audio);
+
+	// Scenes
+	addModule(scene_intro);
+	addModule(scene);
+	addModule(scene_over);
+	addModule(scene_win);
+
+	// Collisions
+	addModule(collision);
+
+	// Characters
+	addModule(player);
+	addModule(enemy);
+
+	// Miscellaneous
+	addModule(particles);
+	addModule(fade);
 }
 
 Application::~Application()
@@ -31,6 +68,16 @@ Application::~Application()
 	delete renderer;
 	delete textures;
 	delete input;
+	delete audio;
+	delete scene;
+	delete player;
+	delete enemy;
+	delete scene_intro;
+	delete scene_over;
+	delete scene_win;
+	delete particles;
+	delete fade;
+	delete collision;
 }
 
 bool Application::init()
@@ -52,7 +99,8 @@ bool Application::init()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->start();
+		if (item->data->isEnabled())
+			ret = item->data->start();
 		item = item->next;
 	}
 	
@@ -67,7 +115,8 @@ update_status Application::update()
 
 	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		ret = item->data->preUpdate();
+		if (item->data->isEnabled())
+			ret = item->data->preUpdate();
 		item = item->next;
 	}
 
@@ -75,15 +124,17 @@ update_status Application::update()
 
 	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		ret = item->data->update();
+		if (item->data->isEnabled())
+			ret = item->data->update();
 		item = item->next;
 	}
 
 	item = list_modules.getFirst();
 
 	while (item != NULL && ret == UPDATE_CONTINUE)
-	{
-		ret = item->data->postUpdate();
+	{ 
+		if (item->data->isEnabled())
+			ret = item->data->postUpdate();
 		item = item->next;
 	}
 

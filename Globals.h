@@ -9,10 +9,10 @@
 #include <stdio.h>
 
 // Game Configuration
-#define TITLE "R-TYPE personal project"
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-#define SCREEN_SIZE 1
+#define TITLE "R-TYPE"
+#define SCREEN_WIDTH 384
+#define SCREEN_HEIGHT 256
+#define SCREEN_SIZE 2
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false

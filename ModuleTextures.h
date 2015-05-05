@@ -16,14 +16,16 @@ class ModuleTextures : public Module
 {
 public:
 
-	SDL_Texture* const load(const char* path);
 	DList<SDL_Texture*> textures;
 
-	ModuleTextures(Application*);
+	ModuleTextures(Application *app, bool start_enabled = true);
 	~ModuleTextures();
 
 	bool init();
 	bool cleanUp();
+
+	SDL_Texture* const load(const char* path);
+	void unload(SDL_Texture *texture);
 };
 
 #endif //!__MODULETEXTURES_H__

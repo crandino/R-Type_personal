@@ -6,21 +6,21 @@
 //=================================
 // the actual code
 
-ModuleWindow::ModuleWindow(Application *app) : Module(app)
+ModuleWindow::ModuleWindow(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	window = NULL;
 	screen_surface = NULL;
 }
 
 ModuleWindow::~ModuleWindow()
-{
-}
+{ }
 
 bool ModuleWindow::init()
 {
 	LOG("Init SDL Window & surface");
 	bool ret = true;
 
+	// SDL_INIT_VIDEO is a flag to initialize video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -62,7 +62,8 @@ bool ModuleWindow::init()
 		}
 		else
 		{
-			//Get window surface
+			// Get window surface. If we want to resize the window, 
+			// this function must be called again.
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
@@ -82,7 +83,7 @@ bool ModuleWindow::cleanUp()
 		SDL_DestroyWindow(window);
 	}
 
-	//Quit SDL subsystems
+	// Quit SDL subsystems	
 	SDL_Quit();
 	return true;
 }

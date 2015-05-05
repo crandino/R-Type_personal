@@ -19,15 +19,18 @@ public:
 	SDL_Renderer *renderer;
 	SDL_Rect camera;
 
-	ModuleRender(Application*);
+	ModuleRender(Application *app, bool start_enabled = true);
 	~ModuleRender();
 
 	bool init();
+	update_status preUpdate();
 	update_status update();
+	update_status postUpdate();
 	bool cleanUp();
 
 	bool blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, float speed = 1.0f);
-	
+	bool drawQuad(const SDL_Rect &rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera = true);
+
 };
 
 #endif // !__MODULERENDER_H__

@@ -9,6 +9,16 @@ class ModuleWindow;
 class ModuleRender;
 class ModuleTextures;
 class ModuleInput;
+class ModuleAudio;
+class ModuleSceneSpace;
+class ModulePlayer;
+class ModuleEnemy;
+class ModuleParticles;
+class ModuleSceneIntro;
+class ModuleCollision;
+class ModuleSceneGameOver;
+class ModuleSceneWin;
+class ModuleFadeToBlack;
 //=================================
 // included dependencies
 #include "DList.h"
@@ -21,7 +31,7 @@ class Application
 private:
 
 	DList<Module*> list_modules;
-	void addModule(Module*);
+	void addModule(Module *module);
 
 public:
 	
@@ -29,7 +39,17 @@ public:
 	ModuleRender *renderer;
 	ModuleTextures *textures;
 	ModuleInput *input;
-
+	ModuleAudio *audio;
+	ModuleSceneSpace *scene;
+	ModulePlayer *player;
+	ModuleEnemy *enemy;
+	ModuleFadeToBlack *fade;
+	ModuleSceneIntro *scene_intro;
+	ModuleCollision *collision;
+	ModuleSceneGameOver *scene_over;
+	ModuleSceneWin *scene_win;
+	ModuleParticles *particles;
+	
 	Application();
 	~Application();
 
