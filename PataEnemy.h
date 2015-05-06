@@ -34,7 +34,7 @@ public:
 		attack_frequency = 2000; // In miliseconds	
 	}
 
-	PataEnemy(PataEnemy *e) : Enemy(e)
+	PataEnemy(const PataEnemy *e) : Enemy(e)
 	{ }
 
 	~PataEnemy()

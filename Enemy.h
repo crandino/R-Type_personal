@@ -39,8 +39,9 @@ public:
 		speed.setZero();
 	}
 
-	Enemy(Enemy *e): graphics(e->graphics), anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
+	Enemy(const Enemy *e): graphics(e->graphics), anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
 	{
+		app = e->app;
 		collider = e->collider;
 		attack_frequency = e->attack_frequency;
 		attacks = e->attacks;

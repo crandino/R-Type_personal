@@ -50,18 +50,24 @@ bool ModuleEnemy::start()
 
 bool ModuleEnemy::cleanUp()
 {
-	delete pata;
-
-	doubleNode<Enemy*> *item = enemy_collection.getLast();
+	doubleNode<Enemy*> *item = active.getLast();
 
 	while (item != NULL)
 	{
-		item->data->cleanUp();
 		delete item->data;
 		item = item->previous;
 	}
 
 	active.clear();
+
+	item = enemy_collection.getLast();
+
+	while (item != NULL)
+	{
+		item->data->cleanUp();
+		item = item->previous;
+	}
+
 	return true;
 }
 
@@ -113,7 +119,7 @@ void ModuleEnemy::onCollision(Collider *col1, Collider *col2)
 		app->fade->fadeToBlack(app->scene, app->scene_win, 3.0f);*/
 }
 
-void ModuleEnemy::addEnemy(Enemy *enemy, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleEnemy::addEnemy(const Enemy *enemy, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	Enemy *e = new Enemy(enemy);
 	e->born = SDL_GetTicks() + delay;
