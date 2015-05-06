@@ -31,17 +31,29 @@ public:
 		speed.x = -1;
 		speed.y = 0;
 		life = 12000;
-		attack_frequency = 2000; // In miliseconds
-		graphics = app->textures->load("Sprites/Pata_pata.png");
+		attack_frequency = 2000; // In miliseconds	
 	}
 
-	PataEnemy(const PataEnemy &e) : Enemy(e)
+	PataEnemy(PataEnemy *e) : Enemy(e)
 	{ }
 
 	~PataEnemy()
-	{ 
-		LOG("Unloading particles");
+	{ }
+
+	bool start()
+	{
+		LOG("Loading sprite for Pata-pata");
+		graphics = app->textures->load("Sprites/Pata_pata.png");
+
+		return true;
+	}
+
+	bool cleanUp()
+	{
+		LOG("Unloading sprite for Pata-pata");
 		app->textures->unload(graphics);
+
+		return true;
 	}
 
 	bool update()
@@ -59,6 +71,16 @@ public:
 
 		position.x += speed.x;
 		position.y += speed.y;
+
+		// CRZ ----
+		// Proposal for frequency attacking system, CRZ
+		time_to_attack = (SDL_GetTicks() - born) - (attacks * attack_frequency);
+		if (SDL_TICKS_PASSED(time_to_attack, attack_frequency) == true)
+		{
+			app->particles->addParticle(app->particles->pata_shot, position.x, position.y + 10, COLLIDER_ENEMY_SHOT);
+			attacks++;
+		}
+		// ---- CRZ
 
 		if (collider != NULL)
 		{

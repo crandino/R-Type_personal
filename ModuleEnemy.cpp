@@ -17,15 +17,27 @@
 ModuleEnemy::ModuleEnemy(Application *app, bool start_enabled) : Module(app, start_enabled)
 { 
 	pata = new PataEnemy(app);
+
 	addEnemyClass(pata);
 }
 
 ModuleEnemy::~ModuleEnemy()
-{ }
+{ 
+	delete pata;
+}
 
 // Load assets
 bool ModuleEnemy::start()
 {
+
+	doubleNode<Enemy*> *item = enemy_collection.getFirst();
+
+	while (item != NULL)
+	{
+		item->data->start();
+		item = item->next;
+	}
+
 	LOG("Loading enemies...");
 
 	// Adding enemies
@@ -38,13 +50,13 @@ bool ModuleEnemy::start()
 
 bool ModuleEnemy::cleanUp()
 {
-
 	delete pata;
 
-	doubleNode<Enemy*> *item = active.getLast();
+	doubleNode<Enemy*> *item = enemy_collection.getLast();
 
 	while (item != NULL)
 	{
+		item->data->cleanUp();
 		delete item->data;
 		item = item->previous;
 	}
@@ -77,16 +89,6 @@ update_status ModuleEnemy::update()
 				e->fx_played = true;
 				app->audio->playFx(e->fx);
 			}
-
-			// CRZ ----
-			// Proposal for frequency attacking system, CRZ
-			e->time_to_attack = (SDL_GetTicks() - e->born) - (e->attacks * e->attack_frequency);
-			if (SDL_TICKS_PASSED(e->time_to_attack, e->attack_frequency) == true)
-			{
-				app->particles->addParticle(app->particles->pata_shot, e->position.x, e->position.y + 10, COLLIDER_ENEMY_SHOT);
-				e->attacks++;
-			}
-			// ---- CRZ
 		}
 		tmp = tmp_next;
 	}
@@ -111,7 +113,7 @@ void ModuleEnemy::onCollision(Collider *col1, Collider *col2)
 		app->fade->fadeToBlack(app->scene, app->scene_win, 3.0f);*/
 }
 
-void ModuleEnemy::addEnemy(const Enemy &enemy, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleEnemy::addEnemy(Enemy *enemy, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	Enemy *e = new Enemy(enemy);
 	e->born = SDL_GetTicks() + delay;

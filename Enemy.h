@@ -39,15 +39,15 @@ public:
 		speed.setZero();
 	}
 
-	Enemy(const Enemy &e) : graphics(e.graphics), anim(e.anim), position(e.position), speed(e.speed), fx_played(false)
+	Enemy(Enemy *e): graphics(e->graphics), anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
 	{
-		collider = e.collider;
-		attack_frequency = e.attack_frequency;
-		attacks = e.attacks;
-		time_to_attack = e.time_to_attack;
-		fx = e.fx;
-		born = e.born;
-		life = e.life;
+		collider = e->collider;
+		attack_frequency = e->attack_frequency;
+		attacks = e->attacks;
+		time_to_attack = e->time_to_attack;
+		fx = e->fx;
+		born = e->born;
+		life = e->life;
 	}
 
 	~Enemy()
@@ -56,9 +56,9 @@ public:
 			collider->to_delete = true;
 	}
 
-	//virtual bool start() { return true; }
+	virtual bool start() { return true; }
 	virtual bool update() { return true; }
-	//virtual bool cleanUp() { return true; }
+	virtual bool cleanUp() { return true; }
 };
 
 
