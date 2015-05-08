@@ -29,6 +29,12 @@ ModuleEnemy::~ModuleEnemy()
 // Load assets
 bool ModuleEnemy::start()
 {
+	LOG("Loading enemies...");
+
+	// Adding enemies
+	addEnemy(PATA_ENEMY, 700, 100, COLLIDER_ENEMY);
+	addEnemy(PATA_ENEMY, 650, 125, COLLIDER_ENEMY);
+	addEnemy(PATA_ENEMY, 400, 150, COLLIDER_ENEMY);
 
 	doubleNode<Enemy*> *item = enemy_collection.getFirst();
 
@@ -37,13 +43,6 @@ bool ModuleEnemy::start()
 		item->data->start();
 		item = item->next;
 	}
-
-	LOG("Loading enemies...");
-
-	// Adding enemies
-	addEnemy(pata, 700, 100, COLLIDER_ENEMY);
-	addEnemy(pata, 650, 125, COLLIDER_ENEMY);
-	addEnemy(pata, 400, 150, COLLIDER_ENEMY);
 
 	return true;
 }
@@ -119,9 +118,16 @@ void ModuleEnemy::onCollision(Collider *col1, Collider *col2)
 		app->fade->fadeToBlack(app->scene, app->scene_win, 3.0f);*/
 }
 
-void ModuleEnemy::addEnemy(const Enemy *enemy, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleEnemy::addEnemy(enemy_types type, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
-	Enemy *e = new Enemy(enemy);
+	Enemy *e = NULL;
+
+	switch (type)
+	{
+	case(PATA_ENEMY) : e = new PataEnemy(app);
+		break;
+	}
+
 	e->born = SDL_GetTicks() + delay;
 	e->position.x = x;
 	e->position.y = y;
@@ -131,5 +137,6 @@ void ModuleEnemy::addEnemy(const Enemy *enemy, int x, int y, COLLIDER_TYPE colli
 		e->collider = app->collision->addCollider({ e->position.x, e->position.y, 0, 0 }, collider_type, this);
 	}
 
-	active.add(e);
+	if (e != NULL)
+		active.add(e);
 }

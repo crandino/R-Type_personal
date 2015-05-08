@@ -39,7 +39,7 @@ public:
 		speed.setZero();
 	}
 
-	Enemy(const Enemy *e): graphics(e->graphics), anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
+	Enemy(const Enemy *e): anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
 	{
 		app = e->app;
 		collider = e->collider;

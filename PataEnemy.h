@@ -4,7 +4,6 @@
 #define __PATAENEMY_H__
 //=================================
 // forward declared dependencies
-
 //=================================
 // included dependencies
 #include "Enemy.h"
@@ -32,6 +31,7 @@ public:
 		speed.y = 0;
 		life = 12000;
 		attack_frequency = 2000; // In miliseconds	
+		graphics = NULL;
 	}
 
 	PataEnemy(const PataEnemy *e) : Enemy(e)

@@ -17,6 +17,11 @@ class Enemy;
 //=================================
 // the actual class
 
+enum enemy_types
+{
+	PATA_ENEMY
+};
+
 class ModuleEnemy : public Module
 {
 
@@ -41,7 +46,7 @@ public:
 	bool cleanUp();
 	void onCollision(Collider *col1, Collider *col2);
 	
-	void addEnemy(const Enemy *e, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);	
+	void addEnemy(enemy_types type, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);	
 	void addEnemyClass(Enemy *enemy_class)
 	{
 		enemy_collection.add(enemy_class);
