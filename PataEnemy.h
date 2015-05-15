@@ -7,6 +7,7 @@
 //=================================
 // included dependencies
 #include "Enemy.h"
+#include <math.h>
 //=================================
 // the actual class
 
@@ -15,7 +16,7 @@ class PataEnemy : public Enemy
 
 public:
 
-	PataEnemy(Application *app) : Enemy(app)
+	PataEnemy(Application *app, SDL_Texture *texture) : Enemy(app)
 	{
 		//Pata-pata frames
 		anim.frames.pushBack({ 5, 6, 21, 24 });
@@ -29,32 +30,13 @@ public:
 		anim.speed = 0.1f;
 		speed.x = -1;
 		speed.y = 0;
-		life = 12000;
-		attack_frequency = 2000; // In miliseconds	
-		graphics = NULL;
+		life = 12000; // In miliseconds
+		attack_frequency = 2000; // In miliseconds
+		graphics = texture;
 	}
-
-	PataEnemy(const PataEnemy *e) : Enemy(e)
-	{ }
 
 	~PataEnemy()
 	{ }
-
-	bool start()
-	{
-		LOG("Loading sprite for Pata-pata");
-		graphics = app->textures->load("Sprites/Pata_pata.png");
-
-		return true;
-	}
-
-	bool cleanUp()
-	{
-		LOG("Unloading sprite for Pata-pata");
-		app->textures->unload(graphics);
-
-		return true;
-	}
 
 	bool update()
 	{
@@ -70,6 +52,7 @@ public:
 				ret = false;
 
 		position.x += speed.x;
+		speed.y = -sin(0.05 * position.x);
 		position.y += speed.y;
 
 		// CRZ ----

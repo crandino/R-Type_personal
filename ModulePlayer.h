@@ -25,15 +25,17 @@ public:
 	Animation idle_to_downward;
 	Animation downward_to_idle;
 	Animation explosion;
-	Point2d<int> position;
+	Point2d<float> position;
 
 	// CRZ ----
 	DynArray<Animation*> animation_set;
-	bool keyboard_enabled;
 	// ---- CRZ
 
 	//ROF ----
-	unsigned int speed; 
+	float speed;
+
+	//DTM
+	unsigned int lives = 2;
 
 	ModulePlayer(Application *app, bool start_enabled = true);
 	~ModulePlayer();

@@ -28,13 +28,12 @@ class ModuleEnemy : public Module
 private:
 
 	DList<Enemy*> active;
-	DList<Enemy*> enemy_collection;
-
+	
 public:
 
-	// List of enemies
+	// List of enemy textures
 	// Level 1
-	PataEnemy *pata;
+	SDL_Texture *pata_graphics;
 
 	// Level 2
 
@@ -46,11 +45,7 @@ public:
 	bool cleanUp();
 	void onCollision(Collider *col1, Collider *col2);
 	
-	void addEnemy(enemy_types type, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);	
-	void addEnemyClass(Enemy *enemy_class)
-	{
-		enemy_collection.add(enemy_class);
-	}
+	void addEnemy(enemy_types type, SDL_Texture *texture, float x, float y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
 
 };
 

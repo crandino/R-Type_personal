@@ -50,11 +50,14 @@ bool ModuleSceneWin::cleanUp()
 update_status ModuleSceneWin::update()
 {
 	// Draw everything
-	app->renderer->blit(graphics, 0, 0, NULL);
+	app->renderer->blit(graphics, 0.f, 0.f, NULL);
 
-	if (app->input->getKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	if (app->input->keyboard_enabled == true)
 	{
-		app->fade->fadeToBlack(this, app->scene_intro, 3.0f);
+		if (app->input->getKey(SDL_SCANCODE_SPACE) == KEY_UP)
+		{
+			app->fade->fadeToBlack(this, app->scene_intro, 3.0f);
+		}
 	}
 
 	return UPDATE_CONTINUE;

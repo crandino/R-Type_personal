@@ -19,8 +19,8 @@ public:
 	Application *app;
 
 	SDL_Texture *graphics;
-	Point2d<int> position;
-	Point2d<int> speed;
+	Point2d<float> position;
+	Point2d<float> speed;
 	Animation anim;
 	Uint32 born;
 	Uint32 life;
@@ -39,27 +39,15 @@ public:
 		speed.setZero();
 	}
 
-	Enemy(const Enemy *e): anim(e->anim), position(e->position), speed(e->speed), fx_played(false)
-	{
-		app = e->app;
-		collider = e->collider;
-		attack_frequency = e->attack_frequency;
-		attacks = e->attacks;
-		time_to_attack = e->time_to_attack;
-		fx = e->fx;
-		born = e->born;
-		life = e->life;
-	}
-
 	~Enemy()
 	{
 		if (collider)
 			collider->to_delete = true;
 	}
 
-	virtual bool start() { return true; }
+	
 	virtual bool update() { return true; }
-	virtual bool cleanUp() { return true; }
+	
 };
 
 
