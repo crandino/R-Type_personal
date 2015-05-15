@@ -29,12 +29,14 @@ public:
 
 	// CRZ ----
 	DynArray<Animation*> animation_set;
+	bool active;
 	// ---- CRZ
 
 	//ROF ----
 	float speed;
 
 	//DTM
+	// OJO!!! Aquí no...
 	unsigned int lives = 2;
 
 	ModulePlayer(Application *app, bool start_enabled = true);

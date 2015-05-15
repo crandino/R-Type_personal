@@ -4,10 +4,8 @@
 #define __ENEMY_H__
 //=================================
 // forward declared dependencies
-
 //=================================
 // included dependencies
-
 //=================================
 // the actual class
 
@@ -18,6 +16,7 @@ public:
 
 	Application *app;
 
+	DynArray<Point2d<float>> path;
 	SDL_Texture *graphics;
 	Point2d<float> position;
 	Point2d<float> speed;
@@ -33,8 +32,16 @@ public:
 	Uint32 attacks;
 	Uint32 attack_frequency;
 	
-	Enemy(Application *parent) : app(parent), fx(0), born(0), life(0), fx_played(false), attacks(0), time_to_attack(0), collider(NULL)
+	Enemy(Application *parent)
 	{
+		app = parent;
+		fx = 0;
+		born = 0;
+		life = 0;
+		fx_played = false;
+		attacks = 0;
+		time_to_attack = 0;
+		collider = NULL;
 		position.setZero();
 		speed.setZero();
 	}
