@@ -98,6 +98,9 @@
     <ClInclude Include="ModuleInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BugEnemy.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

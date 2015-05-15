@@ -26,6 +26,7 @@ bool ModuleEnemy::start()
 	LOG("Loading enemy textures");
 
 	pata_graphics = app->textures->load("Sprites/Pata_pata.png");
+	bug_graphics = app->textures->load("Sprites/Bug.png");
 	
 	LOG("Loading enemies...");
 
@@ -41,6 +42,7 @@ bool ModuleEnemy::cleanUp()
 {
 
 	app->textures->unload(pata_graphics);
+	app->textures->unload(bug_graphics);
 
 	doubleNode<Enemy*> *item = active.getLast();
 

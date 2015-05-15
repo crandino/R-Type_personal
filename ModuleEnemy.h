@@ -19,7 +19,8 @@ class Enemy;
 
 enum enemy_types
 {
-	PATA_ENEMY
+	PATA_ENEMY,
+	BUG_ENEMY
 };
 
 class ModuleEnemy : public Module
@@ -34,6 +35,7 @@ public:
 	// List of enemy textures
 	// Level 1
 	SDL_Texture *pata_graphics;
+	SDL_Texture *bug_graphics;
 
 	// Level 2
 
