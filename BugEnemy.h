@@ -55,7 +55,6 @@ public:
 		speed_value = 1.0f;
 		angle = 0;
 		life = 50000; // In miliseconds
-		attack_frequency = 2000; // In miliseconds
 		graphics = texture;
 	}
 

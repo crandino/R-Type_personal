@@ -41,8 +41,6 @@ bool ModuleEnemy::start()
 	addEnemy(BUG_ENEMY, bug_graphics, 1140.f, 50.f, COLLIDER_ENEMY);
 	addEnemy(BUG_ENEMY, bug_graphics, 1180.f, 50.f, COLLIDER_ENEMY);
 	addEnemy(BUG_ENEMY, bug_graphics, 1220.f, 50.f, COLLIDER_ENEMY);
-	//addEnemy(BUG_ENEMY, bug_graphics, 1050.f, 125.f, COLLIDER_ENEMY);
-	//addEnemy(BUG_ENEMY, bug_graphics, 1100.f, 150.f, COLLIDER_ENEMY);
 	
 	return true;
 }

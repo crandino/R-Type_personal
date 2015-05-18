@@ -25,11 +25,6 @@ public:
 	bool fx_played;
 	unsigned int fx;
 	Collider *collider;
-
-	// CRZ
-	Uint32 time_to_attack;
-	Uint32 attacks;
-	Uint32 attack_frequency;
 	
 	Enemy(Application *parent)
 	{
@@ -38,19 +33,16 @@ public:
 		born = 0;
 		life = 0;
 		fx_played = false;
-		attacks = 0;
-		time_to_attack = 0;
 		collider = NULL;
 		position.setZero();
 		speed.setZero();
 	}
 
-	~Enemy()
+	virtual ~Enemy()
 	{
 		if (collider)
 			collider->to_delete = true;
 	}
-
 	
 	virtual bool update() { return true; }
 	

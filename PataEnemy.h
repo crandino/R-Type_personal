@@ -16,6 +16,11 @@ class PataEnemy : public Enemy
 
 public:
 
+	// CRZ
+	Uint32 time_to_attack;
+	Uint32 attacks;
+	Uint32 attack_frequency;
+
 	PataEnemy(Application *app, SDL_Texture *texture) : Enemy(app)
 	{
 		//Pata-pata frames
@@ -32,6 +37,7 @@ public:
 		speed.y = 0;
 		life = 12000; // In miliseconds
 		attack_frequency = 2000; // In miliseconds
+		attacks = 0;
 		graphics = texture;
 	}
 
