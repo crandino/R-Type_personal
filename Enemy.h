@@ -16,7 +16,6 @@ public:
 
 	Application *app;
 
-	DynArray<Point2d<float>> path;
 	SDL_Texture *graphics;
 	Point2d<float> position;
 	Point2d<float> speed;

@@ -37,7 +37,10 @@ bool ModuleEnemy::start()
 	addEnemy(PATA_ENEMY, pata_graphics, 650.f, 125.f, COLLIDER_ENEMY);
 	addEnemy(PATA_ENEMY, pata_graphics, 400.f, 150.f, COLLIDER_ENEMY);
 
-	addEnemy(BUG_ENEMY, bug_graphics, 750.f, 100.f, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1100.f, 50.f, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1140.f, 50.f, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1180.f, 50.f, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1220.f, 50.f, COLLIDER_ENEMY);
 	//addEnemy(BUG_ENEMY, bug_graphics, 1050.f, 125.f, COLLIDER_ENEMY);
 	//addEnemy(BUG_ENEMY, bug_graphics, 1100.f, 150.f, COLLIDER_ENEMY);
 	

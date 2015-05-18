@@ -7,6 +7,8 @@
 //=================================
 // included dependencies
 #include "Enemy.h"
+#include "Application.h"
+#include "ModulePlayer.h"
 #include <math.h>
 //=================================
 // the actual class
@@ -14,7 +16,15 @@
 class BugEnemy : public Enemy
 {
 
+private:
+
+	float angle;
+
 public:
+
+	float speed_value;
+	DynArray<Point2d<float>> path;
+	unsigned int path_position;
 
 	BugEnemy(Application *app, SDL_Texture *texture) : Enemy(app)
 	{
@@ -36,18 +46,48 @@ public:
 		anim.frames.pushBack({ 448, 0, 32, 32 });
 		anim.frames.pushBack({ 480, 0, 32, 32 });
 
-		path.pushBack({ 5.0f, 5.0f });
+		path.pushBack({ 500.0f, 50.0f });
+		path.pushBack({ 400.0f, 150.0f });
+		path.pushBack({ 0.0f, 150.0f });
 	
+		path_position = 0;
 		anim.speed = 0.0f;
-		speed.x = -1;
-		speed.y = 0;
-		life = 18000; // In miliseconds
+		speed_value = 1.0f;
+		angle = 0;
+		life = 50000; // In miliseconds
 		attack_frequency = 2000; // In miliseconds
 		graphics = texture;
 	}
 
 	~BugEnemy()
 	{ }
+
+	void orientTo(const Point2d<float> &position_destiny)
+	{
+		// https://www.mathsisfun.com/geometry/unit-circle.html
+		// It might be helpul!
+
+		float dx = position_destiny.x - position.x;
+		float dy = position_destiny.y - position.y;
+
+		angle = atan(dy / dx);
+
+		if (dx >= 0)
+		{
+			if (dy < 0)
+				angle = 2 * M_PI + angle;
+		}
+		else
+		{
+			angle = M_PI + angle;
+		}
+
+		speed.x = cos(angle) * speed_value;
+		speed.y = sin(angle) * speed_value;
+
+		//LOG("%f - %f", speed.x, speed.y);
+		//LOG("%f", angle * 180.0f / M_PI);
+	}
 
 	bool update()
 	{
@@ -64,29 +104,26 @@ public:
 				ret = false;
 		}		
 
-		position.x += speed.x;
-		speed.y = -sin(0.05 * position.x);
-		position.y += speed.y;
+		/*LOG("X: %f %f", position.x, path[path_position].x);
+		LOG("Y: %f %f", position.y, path[path_position].y);*/
+		//LOG("%d", path_position);
 
-		// CRZ --- Method to orient the animation.
-		float theta = atan(speed.y / speed.x);
-
-		if (speed.x >= 0)
-		{
-			if (speed.y < 0)
-				theta = 2 * M_PI + theta;
+		if (position.isClosedTo(path[path_position], 1.0f))
+		{ 		
+			if (path_position < path.getNumElements() - 1)
+				path_position++;
+			else
+				speed.x = speed.y = 0;
 		}
 		else
 		{
-			if (speed.y >= 0)
-				theta = M_PI + theta;
-			else
-				theta = M_PI + theta;
-		}
+			orientTo(path[path_position]);			
+		}		
 
-		theta = theta * (180 / M_PI);
-		anim.current_frame = (int)(theta / (360.0f / 16.0f));
-		// CRZ ---	
+		position.x += speed.x;
+		position.y += speed.y;
+
+		anim.current_frame = (int)( angle * (180.0f / M_PI) / (360.0f / anim.frames.getNumElements()));
 
 		if (collider != NULL)
 		{
