@@ -18,7 +18,6 @@
 ModuleSceneSpace::ModuleSceneSpace(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	boundary_level = NULL;
-	//stars = NULL;
 }
 
 ModuleSceneSpace::~ModuleSceneSpace()
@@ -39,14 +38,14 @@ bool ModuleSceneSpace::start()
 	app->audio->playMusic("Music/Level1.ogg", 1.0f);
 
 	//Speeds added
-	scroll_player_speed = 0.333f;
+	scroll_player_speed = (int)(0.5 * SCALE_FACTOR); //0.333f;
 	//Map speed IMPORTANT!
-	scroll_camera_speed = 1.75f;
+	scroll_camera_speed = (int)(0.5 * SCALE_FACTOR); //1.75f;
 
-	limit_xneg = 10.f;
-	limit_xpos = SCREEN_WIDTH - 32.f;
+	left_limit = (10 * SCALE_FACTOR);
+	right_limit = (SCREEN_WIDTH - 32) * SCALE_FACTOR;
 
-	app->renderer->camera.x = app->renderer->camera.y = 0.f;
+	app->renderer->camera.x = app->renderer->camera.y = 0;
 
 	// Wall collider
 	app->collision->addCollider({ 0, 224, 3930, 16 }, COLLIDER_WALL);
@@ -82,14 +81,13 @@ bool ModuleSceneSpace::cleanUp()
 update_status ModuleSceneSpace::update()
 {
 	// Move camera forward
-
 	app->player->position.x += scroll_player_speed;
 	app->renderer->camera.x -= scroll_camera_speed;
-	limit_xneg += scroll_player_speed;
-	limit_xpos += scroll_player_speed;
+	left_limit += scroll_player_speed;
+	right_limit += scroll_player_speed;
 
 	// Draw everything
-	app->renderer->blit(boundary_level, 0.f, 0.f, NULL);
+	app->renderer->blit(boundary_level, 0, 0, NULL);
 
 	return UPDATE_CONTINUE;
 }

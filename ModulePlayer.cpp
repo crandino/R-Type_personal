@@ -75,9 +75,9 @@ bool ModulePlayer::start()
 	active = true;
 	app->input->keyboard_enabled = true;
 
-	position.x = 50.f;
-	position.y = 100.f;
-	speed = 1.5f;
+	position.x = 50 * SCALE_FACTOR;
+	position.y = 100 * SCALE_FACTOR;
+	speed = 2 * SCALE_FACTOR;
 
 	graphics = app->textures->load("Sprites/Arrowhead.png");
 	current_animation = &idle;
@@ -106,7 +106,7 @@ update_status ModulePlayer::update()
 {
 	if (active)
 	{
-		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_REPEAT && position.y < 0)
 		{
 			position.y -= speed;
 
@@ -128,30 +128,21 @@ update_status ModulePlayer::update()
 			}
 		}
 
-		if (app->input->getKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		/*if (app->input->getKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 		{
-			if (position.x > app->scene->limit_xneg)
-			{
+			if (position.x > app->scene->left_limit)
 				position.x -= speed;
-			}
 			else
-			{
-				position.x -= 0.f;
-			}
-		}
+				position.x -= 0;
+		}*/
 
+		if (app->input->getKey(SDL_SCANCODE_LEFT) == KEY_REPEAT &&
+			position.x > app->scene->left_limit )
+			position.x -= speed;
 
-		if (app->input->getKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		{
-			if (position.x < app->scene->limit_xpos)
-			{
-				position.x += speed;
-			}
-			else
-			{
-				position.x += 0.f;
-			}
-		}
+		if (app->input->getKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT &&
+			position.x < app->scene->right_limit)
+			position.x += speed;
 
 
 		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_IDLE && app->input->getKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
@@ -187,13 +178,13 @@ update_status ModulePlayer::update()
 
 void ModulePlayer::onCollision(Collider *col1, Collider *col2)
 {
-	speed = 0.f;
+	speed = 0;
 	current_animation = &explosion;
 	app->input->keyboard_enabled = false;
 	
-	app->scene->scroll_player_speed = 0.f;
-	app->scene->scroll_camera_speed = 0.f;
-	app->game_interface->speed_interface = 0.f;
+	app->scene->scroll_player_speed = 0;
+	app->scene->scroll_camera_speed = 0;
+	app->game_interface->speed_interface = 0;
 
 	// If player is still active, the fade occurs and the player is inactive;
 	if (active)

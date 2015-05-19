@@ -13,6 +13,7 @@
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 256
 #define SCREEN_SIZE 2
+#define SCALE_FACTOR 100
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false

@@ -39,7 +39,7 @@ struct Collider
 		to_delete(false)
 	{ }
 
-	void setPos(float x, float y)
+	void setPos(int x, int y)
 	{
 		rect.x = x;
 		rect.y = y;
