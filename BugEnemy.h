@@ -68,24 +68,27 @@ public:
 
 		float dx = position_destiny.x - position.x;
 		float dy = position_destiny.y - position.y;
+		
+		//LOG("%d %d", position_destiny.x - position.x, position_destiny.y - position.y);		
 
-		angle = atan(dy / dx);
+		angle = atan(dy/dx);
 
 		if (dx >= 0)
 		{
 			if (dy < 0)
-				angle = 2 * M_PI + angle;
+				angle = 2.0f * M_PI + angle;
 		}
 		else
 		{
 			angle = M_PI + angle;
 		}
 
-		speed.x = cos(angle) * speed_value;
-		speed.y = sin(angle) * speed_value;
+		LOG("%f", angle * 180.0f / M_PI);
+
+		speed.x = (int)(cos(angle) * speed_value);
+		speed.y = (int)(sin(angle) * speed_value);
 
 		//LOG("%f - %f", speed.x, speed.y);
-		//LOG("%f", angle * 180.0f / M_PI);
 	}
 
 	bool update()
@@ -107,7 +110,7 @@ public:
 		LOG("Y: %f %f", position.y, path[path_position].y);*/
 		//LOG("%d", path_position);
 
-		if (position.isClosedTo(path[path_position], 1.0f))
+		if (position.isClosedTo(path[path_position], 1 * SCALE_FACTOR ))
 		{ 		
 			if (path_position < path.getNumElements() - 1)
 				path_position++;

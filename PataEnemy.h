@@ -58,7 +58,7 @@ public:
 				ret = false;
 
 		position.x += speed.x;
-		speed.y = -sin(0.05 * position.x);
+		speed.y = -sin(5.0f * position.x);
 		position.y += speed.y;
 
 		// CRZ ----
