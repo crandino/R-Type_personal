@@ -38,9 +38,9 @@ bool ModuleEnemy::start()
 	addEnemy(PATA_ENEMY, pata_graphics, 400 * SCALE_FACTOR, 150 * SCALE_FACTOR, COLLIDER_ENEMY);
 
 	addEnemy(BUG_ENEMY, bug_graphics, 1100 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
-	/*addEnemy(BUG_ENEMY, bug_graphics, 1140 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1140 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
 	addEnemy(BUG_ENEMY, bug_graphics, 1180 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
-	addEnemy(BUG_ENEMY, bug_graphics, 1220 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);*/
+	addEnemy(BUG_ENEMY, bug_graphics, 1220 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
 	
 	return true;
 }
