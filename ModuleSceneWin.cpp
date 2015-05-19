@@ -18,7 +18,6 @@ ModuleSceneWin::ModuleSceneWin(Application *app, bool start_enabled) : Module(ap
 {
 	graphics = NULL;
 	fx = 0;
-
 }
 
 ModuleSceneWin::~ModuleSceneWin()
@@ -31,7 +30,6 @@ bool ModuleSceneWin::start()
 	bool ret = true;
 
 	graphics = app->textures->load("Images/Win.png");
-	//fx = app->audio->loadFx("Sounds/Coin.ogg");
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 	return ret;
 }

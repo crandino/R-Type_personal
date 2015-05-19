@@ -15,6 +15,16 @@
 //=================================
 // the actual code
 
+const SDL_Rect& scale(const SDL_Rect& rect)
+{
+	SDL_Rect *tmp = new SDL_Rect(rect);
+	tmp->x *= SCALE_FACTOR;
+	tmp->y *= SCALE_FACTOR;
+	tmp->w *= SCALE_FACTOR;
+	tmp->h *= SCALE_FACTOR;
+	return *tmp;
+}
+
 ModuleSceneSpace::ModuleSceneSpace(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	boundary_level = NULL;
@@ -37,9 +47,9 @@ bool ModuleSceneSpace::start()
 	app->particles->enable();	
 	app->audio->playMusic("Music/Level1.ogg", 1.0f);
 
-	//Speeds added
+	// Speeds added
 	scroll_player_speed = (int)(0.5 * SCALE_FACTOR); //0.333f;
-	//Map speed IMPORTANT!
+	// Map speed IMPORTANT!
 	scroll_camera_speed = (int)(0.5 * SCALE_FACTOR); //1.75f;
 
 	left_limit = (10 * SCALE_FACTOR);
@@ -48,16 +58,16 @@ bool ModuleSceneSpace::start()
 	app->renderer->camera.x = app->renderer->camera.y = 0;
 
 	// Wall collider
-	app->collision->addCollider({ 0, 224, 3930, 16 }, COLLIDER_WALL);
-	app->collision->addCollider({ 142, 192, 64, 32 }, COLLIDER_WALL);
-	app->collision->addCollider({ 206, 208, 64, 16 }, COLLIDER_WALL);
-	app->collision->addCollider({ 592, 208, 64, 16 }, COLLIDER_WALL);
-	app->collision->addCollider({ 1232, 208, 64, 16 }, COLLIDER_WALL);
-	app->collision->addCollider({ 720, 192, 64, 32 }, COLLIDER_WALL);
-	app->collision->addCollider({ 1376, 16, 112, 80 }, COLLIDER_WALL);
-	app->collision->addCollider({ 1376, 144, 112, 80 }, COLLIDER_WALL);
-	app->collision->addCollider({ 1376, 0, 560, 16 }, COLLIDER_WALL);
-	app->collision->addCollider({ 1680, 16, 64, 16 }, COLLIDER_WALL);
+	app->collision->addCollider(scale({    0,  224, 3930,  16 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({  142,  192,   64,  32 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({  206,  208,   64,  16 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({  592,  208,   64,  16 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({ 1232,  208,   64,  16 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({  720,  192,   64,  32 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({ 1376,   16,  112,  80 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({ 1376,  144,  112,  80 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({ 1376,    0,  560,  16 }), COLLIDER_WALL);
+	app->collision->addCollider(scale({ 1680,   16,   64,  16 }), COLLIDER_WALL);
 
 	return true;
 }

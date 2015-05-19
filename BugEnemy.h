@@ -22,8 +22,8 @@ private:
 
 public:
 
-	float speed_value;
-	DynArray<Point2d<float>> path;
+	int speed_value;
+	DynArray<Point2d<int>> path;
 	unsigned int path_position;
 
 	BugEnemy(Application *app, SDL_Texture *texture) : Enemy(app)
@@ -46,13 +46,13 @@ public:
 		anim.frames.pushBack({ 448, 0, 32, 32 });
 		anim.frames.pushBack({ 480, 0, 32, 32 });
 
-		path.pushBack({ 500.0f, 50.0f });
-		path.pushBack({ 400.0f, 150.0f });
-		path.pushBack({ 0.0f, 150.0f });
+		path.pushBack({ 500 * SCALE_FACTOR, 50 * SCALE_FACTOR });
+		path.pushBack({ 400 * SCALE_FACTOR, 150 * SCALE_FACTOR });
+		path.pushBack({ 0 * SCALE_FACTOR, 150 * SCALE_FACTOR });
 	
 		path_position = 0;
 		anim.speed = 0.0f;
-		speed_value = 1.0f;
+		speed_value = 1 * SCALE_FACTOR;
 		angle = 0;
 		life = 50000; // In miliseconds
 		graphics = texture;
@@ -61,7 +61,7 @@ public:
 	~BugEnemy()
 	{ }
 
-	void orientTo(const Point2d<float> &position_destiny)
+	void orientTo(const Point2d<int> &position_destiny)
 	{
 		// https://www.mathsisfun.com/geometry/unit-circle.html
 		// It might be helpul!
@@ -127,7 +127,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = anim.peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w, r.h };
+			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
 		}
 
 		return ret;

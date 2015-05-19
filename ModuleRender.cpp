@@ -96,8 +96,8 @@ bool ModuleRender::blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, f
 	bool ret = true;
 	SDL_Rect rect;
 	// Speed is eliminated from the code!!
-	rect.x = (camera.x +  x) * (SCREEN_SIZE) / SCALE_FACTOR;
-	rect.y = (camera.y +  y) * (SCREEN_SIZE) / SCALE_FACTOR;
+	rect.x = (camera.x + x) * (SCREEN_SIZE) / SCALE_FACTOR;
+	rect.y = (camera.y + y) * (SCREEN_SIZE) / SCALE_FACTOR;
 
 	//LOG("%s %d %d", "Camera:", camera.x+x, camera.y+y);
 
@@ -135,10 +135,10 @@ bool ModuleRender::drawQuad(const SDL_Rect &rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	SDL_Rect rec(rect);
 	if (use_camera)
 	{
-		rec.x = (int)(camera.x + rect.x * SCREEN_SIZE);
-		rec.y = (int)(camera.y + rect.y * SCREEN_SIZE);
-		rec.w *= SCREEN_SIZE;
-		rec.h *= SCREEN_SIZE;
+		rec.x = (camera.x + rect.x) * (SCREEN_SIZE) / SCALE_FACTOR;
+		rec.y = (camera.y + rect.y) * (SCREEN_SIZE) / SCALE_FACTOR;
+		rec.w = rec.w * SCREEN_SIZE / SCALE_FACTOR;
+		rec.h = rec.h * SCREEN_SIZE / SCALE_FACTOR;
 	}
 
 	if (SDL_RenderFillRect(renderer, &rec) != 0)

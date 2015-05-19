@@ -33,14 +33,14 @@ bool ModuleEnemy::start()
 	LOG("Loading enemies...");
 
 	// Adding enemies
-	/*addEnemy(PATA_ENEMY, pata_graphics, 700.f, 100.f, COLLIDER_ENEMY);
-	addEnemy(PATA_ENEMY, pata_graphics, 650.f, 125.f, COLLIDER_ENEMY);
-	addEnemy(PATA_ENEMY, pata_graphics, 400.f, 150.f, COLLIDER_ENEMY);
+	addEnemy(PATA_ENEMY, pata_graphics, 700 * SCALE_FACTOR, 100 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(PATA_ENEMY, pata_graphics, 650 * SCALE_FACTOR, 125 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(PATA_ENEMY, pata_graphics, 400 * SCALE_FACTOR, 150 * SCALE_FACTOR, COLLIDER_ENEMY);
 
-	addEnemy(BUG_ENEMY, bug_graphics, 1100.f, 50.f, COLLIDER_ENEMY);
-	addEnemy(BUG_ENEMY, bug_graphics, 1140.f, 50.f, COLLIDER_ENEMY);
-	addEnemy(BUG_ENEMY, bug_graphics, 1180.f, 50.f, COLLIDER_ENEMY);
-	addEnemy(BUG_ENEMY, bug_graphics, 1220.f, 50.f, COLLIDER_ENEMY);*/
+	addEnemy(BUG_ENEMY, bug_graphics, 1100 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1140 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1180 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
+	addEnemy(BUG_ENEMY, bug_graphics, 1220 * SCALE_FACTOR, 50 * SCALE_FACTOR, COLLIDER_ENEMY);
 	
 	return true;
 }
@@ -112,7 +112,7 @@ void ModuleEnemy::onCollision(Collider *col1, Collider *col2)
 		app->fade->fadeToBlack(app->scene, app->scene_win, 3.0f);*/
 }
 
-void ModuleEnemy::addEnemy(enemy_types type, SDL_Texture *texture, float x, float y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleEnemy::addEnemy(enemy_types type, SDL_Texture *texture, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	Enemy *e = NULL;
 

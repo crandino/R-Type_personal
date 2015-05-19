@@ -88,7 +88,7 @@ bool ModulePlayer::start()
 	// ---- CRZ
 
 	// Collider to player;
-	collider = app->collision->addCollider({ position.x, position.y, 32, 14 }, COLLIDER_PLAYER, app->player);
+	collider = app->collision->addCollider({ position.x, position.y, 32 * SCALE_FACTOR, 14 * SCALE_FACTOR }, COLLIDER_PLAYER, app->player);
 	
 	return true;
 }
@@ -96,7 +96,6 @@ bool ModulePlayer::start()
 bool ModulePlayer::cleanUp()
 {
 	LOG("Unloading player");
-
 	app->textures->unload(graphics);
 
 	return true;
@@ -106,7 +105,7 @@ update_status ModulePlayer::update()
 {
 	if (active)
 	{
-		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_REPEAT && position.y < 0)
+		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_REPEAT && position.y > 0)
 		{
 			position.y -= speed;
 
@@ -128,14 +127,6 @@ update_status ModulePlayer::update()
 			}
 		}
 
-		/*if (app->input->getKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		{
-			if (position.x > app->scene->left_limit)
-				position.x -= speed;
-			else
-				position.x -= 0;
-		}*/
-
 		if (app->input->getKey(SDL_SCANCODE_LEFT) == KEY_REPEAT &&
 			position.x > app->scene->left_limit )
 			position.x -= speed;
@@ -143,7 +134,6 @@ update_status ModulePlayer::update()
 		if (app->input->getKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT &&
 			position.x < app->scene->right_limit)
 			position.x += speed;
-
 
 		if (app->input->getKey(SDL_SCANCODE_UP) == KEY_IDLE && app->input->getKey(SDL_SCANCODE_DOWN) == KEY_IDLE)
 		{
@@ -163,7 +153,7 @@ update_status ModulePlayer::update()
 
 		if (app->input->getKey(SDL_SCANCODE_LCTRL) == KEY_UP)
 		{
-			app->particles->addParticle(app->particles->shot, position.x + 22.f, position.y + 3.f, COLLIDER_PLAYER_SHOT);
+			app->particles->addParticle(app->particles->shot, position.x + (22 * SCALE_FACTOR), position.y + (3 * SCALE_FACTOR), COLLIDER_PLAYER_SHOT);
 		}
 	}
 

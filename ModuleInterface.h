@@ -22,8 +22,8 @@ public:
 	SDL_Texture *img_bar;
 	unsigned int fx;
 
-	float position_interface;
-	float speed_interface;
+	int position_interface;
+	int speed_interface;
 
 	ModuleInterface(Application *app, bool start_enabled = true);
 	~ModuleInterface();
