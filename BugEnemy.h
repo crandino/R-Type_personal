@@ -83,12 +83,11 @@ public:
 			angle = M_PI + angle;
 		}
 
-		LOG("%f", angle * 180.0f / M_PI);
-
 		speed.x = (int)(cos(angle) * speed_value);
 		speed.y = (int)(sin(angle) * speed_value);
 
 		//LOG("%f - %f", speed.x, speed.y);
+		//LOG("%f", angle * 180.0f / M_PI);
 	}
 
 	bool update()
