@@ -99,7 +99,7 @@ bool ModuleRender::blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, f
 	rect.x = (camera.x + x) * (SCREEN_SIZE) / SCALE_FACTOR;
 	rect.y = (camera.y + y) * (SCREEN_SIZE) / SCALE_FACTOR;
 
-	//LOG("%s %d %d", "Camera:", camera.x+x, camera.y+y);
+	//LOG("%s %d %d", "Camera:", camera.x, camera.y);
 
 	if (section != NULL)
 	{

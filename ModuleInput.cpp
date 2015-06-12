@@ -48,10 +48,9 @@ update_status ModuleInput::preUpdate()
 	//obtained by using SDL_Scancode values.
 	const Uint8 *keys = SDL_GetKeyboardState(NULL);
 
-	
 	for (int i = 0; i < MAX_KEYS; ++i)
 	{
-		if (keyboard_enabled)
+		if (keyboard_enabled == true)
 		{
 			if (keys[i] == 1)
 			{

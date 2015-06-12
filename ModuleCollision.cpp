@@ -4,12 +4,15 @@
 #include "ModuleCollision.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleTextures.h"
+#include "ModulePlayer.h"
 //=================================
 // the actual code
 
 ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	debug = false;
+	god_mode = false;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
@@ -17,6 +20,7 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_WALL][COLLIDER_RIBBON_SHOT] = false;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
@@ -24,6 +28,7 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_POWER_UP] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_RIBBON_SHOT] = false;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = false;
@@ -31,6 +36,7 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_RIBBON_SHOT] = true;
 
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER] = false;
@@ -38,6 +44,7 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_RIBBON_SHOT] = false;
 
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
@@ -45,6 +52,7 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_RIBBON_SHOT] = false;
 
 	matrix[COLLIDER_POWER_UP][COLLIDER_WALL] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER] = true;
@@ -52,11 +60,26 @@ ModuleCollision::ModuleCollision(Application *app, bool start_enabled) : Module(
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_POWER_UP][COLLIDER_RIBBON_SHOT] = false;
+
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_WALL] = false;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_PLAYER] = false;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_ENEMY_SHOT] = false;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_POWER_UP] = false;
+	matrix[COLLIDER_RIBBON_SHOT][COLLIDER_RIBBON_SHOT] = false;
 }
 
 // Destructor
 ModuleCollision::~ModuleCollision()
 { }
+
+bool ModuleCollision::start()
+{
+	god = app->textures->load("Images/God.png");
+	return true;
+}
 
 update_status ModuleCollision::preUpdate()
 {
@@ -80,6 +103,10 @@ update_status ModuleCollision::preUpdate()
 
 update_status ModuleCollision::update()
 {
+	// Debug ---
+	if (app->input->getKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug = !debug;
+
 	doubleNode<Collider*> *tmp = colliders.getFirst();
 
 	Collider *c1;
@@ -111,9 +138,34 @@ update_status ModuleCollision::update()
 		tmp = tmp->next;
 	}
 
-	// Debug ---
-	if (app->input->getKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		debug = !debug;
+	// God_Mode --- The player lose all its collisions.
+	if (app->input->getKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (god_mode == true)
+		{
+			matrix[COLLIDER_PLAYER][COLLIDER_WALL] = true;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = true;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = true;
+			matrix[COLLIDER_PLAYER][COLLIDER_POWER_UP] = true;
+			matrix[COLLIDER_PLAYER][COLLIDER_RIBBON_SHOT] = false;
+		}
+		else
+		{
+			matrix[COLLIDER_PLAYER][COLLIDER_WALL] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_ENEMY] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_SHOT] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_ENEMY_SHOT] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_POWER_UP] = false;
+			matrix[COLLIDER_PLAYER][COLLIDER_RIBBON_SHOT] = false;
+		}
+		god_mode = !god_mode;
+	}
+
+	if (god_mode)
+		app->renderer->blit(god, app->player->position.x - 10 * SCALE_FACTOR, app->player->position.y - 55 * SCALE_FACTOR, NULL);
 
 	return UPDATE_CONTINUE;
 }
@@ -144,14 +196,18 @@ void ModuleCollision::drawDebug(Collider *col)
 		case COLLIDER_POWER_UP:
 			app->renderer->drawQuad(col->rect, 255, 0, 255, alpha);
 			break;
+		case COLLIDER_RIBBON_SHOT:
+			app->renderer->drawQuad(col->rect, 255, 255, 0, alpha);
+			break;
 	}
 }
 
 // Called before quitting
 bool ModuleCollision::cleanUp()
 {
-	LOG("Freeing all colliders");
+	app->textures->unload(god);
 
+	LOG("Freeing all colliders");
 	doubleNode<Collider*> *item = colliders.getLast();
 	
 	while (item != NULL)
@@ -164,8 +220,18 @@ bool ModuleCollision::cleanUp()
 	return true;
 }
 
-Collider *ModuleCollision::addCollider(SDL_Rect rect, COLLIDER_TYPE type, Module *callback)
+Collider *ModuleCollision::addCollider(SDL_Rect rect, COLLIDER_TYPE type, bool positions_scaled, Module *callback)
 {
+
+	if (positions_scaled == false)
+	{
+		rect.x *= SCALE_FACTOR;
+		rect.y *= SCALE_FACTOR;
+	}
+
+	rect.w *= SCALE_FACTOR;
+	rect.h *= SCALE_FACTOR;
+
 	Collider *ret = new Collider(rect, type, callback);
 	colliders.add(ret);
 	return ret;

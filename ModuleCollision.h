@@ -15,12 +15,14 @@
 enum COLLIDER_TYPE
 {
 	COLLIDER_NONE = -1,
+
 	COLLIDER_WALL, 
 	COLLIDER_PLAYER,
 	COLLIDER_ENEMY,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_ENEMY_SHOT,
 	COLLIDER_POWER_UP,
+	COLLIDER_RIBBON_SHOT,
 
 	COLLIDER_MAX
 };
@@ -56,17 +58,20 @@ private:
 	DList<Collider*> colliders;
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug;
+	bool god_mode;
+	SDL_Texture *god;
 
 public:
 
 	ModuleCollision(Application *app, bool start_enabled = true);
 	~ModuleCollision();
 
+	bool start();
 	update_status preUpdate();
 	update_status update();
 	bool cleanUp();
 
-	Collider* addCollider(SDL_Rect rect, COLLIDER_TYPE type, Module *callback = NULL);
+	Collider* addCollider(SDL_Rect rect, COLLIDER_TYPE type, bool positions_scaled = true, Module *callback = NULL);
 	void drawDebug(Collider *col);
 };
 

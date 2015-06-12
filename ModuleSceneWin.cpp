@@ -17,7 +17,6 @@
 ModuleSceneWin::ModuleSceneWin(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	graphics = NULL;
-	fx = 0;
 }
 
 ModuleSceneWin::~ModuleSceneWin()
@@ -28,6 +27,8 @@ bool ModuleSceneWin::start()
 {
 	LOG("Loading Win assets");
 	bool ret = true;
+
+	app->audio->playMusic("Music/Win_Music.wav", 1.0f);
 
 	graphics = app->textures->load("Images/Win.png");
 	app->renderer->camera.x = app->renderer->camera.y = 0;

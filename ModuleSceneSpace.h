@@ -15,12 +15,14 @@ class ModuleSceneSpace : public Module
 {
 public:
 
-	SDL_Texture *boundary_level;
+	SDL_Texture *level1;
+	SDL_Texture *background;
 
-	//ROF ----
-	int scroll_camera_speed;
-	int scroll_player_speed;
-	int left_limit, right_limit;
+	int scroll_speed;    // Velocity to move the scenario.
+	int right_limit;	 // Screen right limit for the screen.
+	int left_limit;		 // Screen left limit for the screen.
+
+	int origin;          // Position reference to other modules.
 
 	ModuleSceneSpace(Application *app, bool start_enabled = true);
 	~ModuleSceneSpace();

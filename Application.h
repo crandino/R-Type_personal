@@ -14,6 +14,8 @@ class ModuleInterface;
 class ModuleSceneSpace;
 class ModulePlayer;
 class ModuleEnemy;
+class ModuleBoss;
+class ModulePowerUp;
 class ModuleParticles;
 class ModuleSceneIntro;
 class ModuleCollision;
@@ -36,9 +38,7 @@ private:
 
 public:
 
-	// No se pueden inicializar valores en las cabezeras.
-	// Habría que hacerlo de otra manera.
-	unsigned int coins = 0;
+	unsigned int coins;
 
 	ModuleWindow *window;
 	ModuleRender *renderer;
@@ -49,6 +49,8 @@ public:
 	ModuleSceneSpace *scene;
 	ModulePlayer *player;
 	ModuleEnemy *enemy;
+	ModuleBoss *boss;
+	ModulePowerUp *powerup;
 	ModuleFadeToBlack *fade;
 	ModuleSceneIntro *scene_intro;
 	ModuleCollision *collision;

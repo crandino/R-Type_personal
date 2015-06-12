@@ -16,10 +16,16 @@ class ModuleSceneGameOver : public Module
 {
 public:
 
+	//Game over textures
 	SDL_Texture *graphics;
 	SDL_Texture *sprite;
+	SDL_Texture *numbers;
+	SDL_Texture *press_space_to_start;
 
+	Animation numbers_coins;
 	Animation countdown;
+	Animation press_space_glow;
+	bool fade_to_black;
 
 	ModuleSceneGameOver(Application *app, bool start_enabled = true);
 	~ModuleSceneGameOver();

@@ -16,11 +16,14 @@ class ModuleSceneIntro : public Module
 {
 public:
 
-	SDL_Texture *graphics;
-	SDL_Texture *sprite;
+	//Intro textures
+	SDL_Texture *intro;
+	SDL_Texture *numbers;
+	SDL_Texture *press_space_to_start;
 	unsigned int fx;
 
 	Animation numbers_coins;
+	Animation press_space_glow;
 
 	ModuleSceneIntro(Application *app, bool start_enabled = true);
 	~ModuleSceneIntro();
@@ -28,6 +31,12 @@ public:
 	bool start();
 	update_status update();
 	bool cleanUp();
+
+	// DTM animation intro
+	unsigned int ticks, seconds;
+	SDL_Texture *title;
+	SDL_Rect rects[20];
+	SDL_Rect source_rects[20];
 
 };
 

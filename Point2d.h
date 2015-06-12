@@ -46,6 +46,13 @@ public:
 		return (*this);
 	}
 
+	const Point2d& operator*= (const Point2d &p)
+	{
+		x *= p.x;
+		y *= p.y;
+		return (*this);
+	}
+
 	bool operator== (const Point2d &p) const
 	{
 		return (x == p.x && y == p.y);
@@ -66,15 +73,18 @@ public:
 		x = y = 0;
 	}
 
-	TYPE distanceTo(const Point2d &p) const
+	float distanceTo(const Point2d &p) const
 	{
-		return sqrt(pow(x - p.x, 2) + pow(y - p.y, 2));
+		float fx = x - p.x;
+		float fy = y - p.y;
+		return sqrt((fx*fx) + (fy*fy));
 	}
 
 	bool isClosedTo(const Point2d &p, float delta) const
 	{
 		return (abs(p.x - x) <= delta && abs(p.y - y) <= delta);
 	}
+
 };
 
 #endif // !__Point2d_H__

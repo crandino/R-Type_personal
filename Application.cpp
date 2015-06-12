@@ -12,6 +12,8 @@
 #include "ModuleSceneSpace.h"
 #include "ModulePlayer.h"
 #include "ModuleEnemy.h"
+#include "ModuleBoss.h"
+#include "ModulePowerUp.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleSceneGameOver.h"
 #include "ModuleSceneWin.h"
@@ -23,6 +25,7 @@
 
 Application::Application()
 {
+	// Create Modules
 	window = new ModuleWindow(this);
 	renderer = new ModuleRender(this);
 	textures = new ModuleTextures(this);
@@ -32,6 +35,8 @@ Application::Application()
 	scene = new ModuleSceneSpace(this, false);
 	player = new ModulePlayer(this, false);
 	enemy = new ModuleEnemy(this, false);
+	boss = new ModuleBoss(this, false);
+	powerup = new ModulePowerUp(this, false);
 	scene_intro = new ModuleSceneIntro(this, true);
 	scene_over = new ModuleSceneGameOver(this, false);
 	scene_win = new ModuleSceneWin(this, false);
@@ -60,6 +65,8 @@ Application::Application()
 	// Characters
 	addModule(player);
 	addModule(enemy);
+	addModule(boss);
+	addModule(powerup);
 
 	// Miscellaneous
 	addModule(particles);
@@ -68,6 +75,7 @@ Application::Application()
 
 Application::~Application()
 {
+	// Delete Modules
 	delete window;
 	delete renderer;
 	delete textures;
@@ -77,6 +85,8 @@ Application::~Application()
 	delete scene;
 	delete player;
 	delete enemy;
+	delete boss;
+	delete powerup;
 	delete scene_intro;
 	delete scene_over;
 	delete scene_win;
@@ -88,6 +98,9 @@ Application::~Application()
 bool Application::init()
 {
 	bool ret = true;
+
+	// Variables
+	coins = 0;
 
 	// We call init() for all modules
 	doubleNode<Module*>* item = list_modules.getFirst();
