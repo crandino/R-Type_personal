@@ -33,7 +33,7 @@ public:
 	unsigned int fx_charging;
 
 	//Properties
-	Point2d<int> position;
+	Point2d<float> position;
 	Collider *collider;
 	int speed;
 	bool active;

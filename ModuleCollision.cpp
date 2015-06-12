@@ -165,7 +165,7 @@ update_status ModuleCollision::update()
 	}
 
 	if (god_mode)
-		app->renderer->blit(god, app->player->position.x - 10 * SCALE_FACTOR, app->player->position.y - 55 * SCALE_FACTOR, NULL);
+		app->renderer->blit(god, app->player->position.x - 10, app->player->position.y - 55, NULL);
 
 	return UPDATE_CONTINUE;
 }
@@ -222,16 +222,6 @@ bool ModuleCollision::cleanUp()
 
 Collider *ModuleCollision::addCollider(SDL_Rect rect, COLLIDER_TYPE type, bool positions_scaled, Module *callback)
 {
-
-	if (positions_scaled == false)
-	{
-		rect.x *= SCALE_FACTOR;
-		rect.y *= SCALE_FACTOR;
-	}
-
-	rect.w *= SCALE_FACTOR;
-	rect.h *= SCALE_FACTOR;
-
 	Collider *ret = new Collider(rect, type, callback);
 	colliders.add(ret);
 	return ret;

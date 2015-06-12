@@ -47,8 +47,6 @@ bool ModuleInterface::start()
 	img_bar = app->textures->load("Sprites/ShotBar.png");
 	charge_beam = app->textures->load("Sprites/BeamFill.png");
 
-	position_interface = 2 * SCALE_FACTOR;
-
 	return true;
 }
 
@@ -71,14 +69,13 @@ bool ModuleInterface::cleanUp()
 // Update: draw background
 update_status ModuleInterface::update()
 {
-	position_interface += app->scene->scroll_speed;
 	for (unsigned int i = 1; i <= app->player->lifes; i++)
-		app->renderer->blit(img_life, position_interface + (8 * SCALE_FACTOR * i), 241 * SCALE_FACTOR, NULL);
+		app->renderer->blit(img_life, app->scene->origin + (8 * i), 241.0f, NULL);
 	
-	app->renderer->blit(img_beam, position_interface + 90 * SCALE_FACTOR, 241 * SCALE_FACTOR, NULL);
-	app->renderer->blit(img_bar, position_interface + 136 * SCALE_FACTOR, 241 * SCALE_FACTOR, NULL);
-	app->renderer->blit(img_p1, position_interface + 30 * SCALE_FACTOR, 250 * SCALE_FACTOR, NULL);
-	app->renderer->blit(img_hi, position_interface + 154 * SCALE_FACTOR, 249 * SCALE_FACTOR, NULL);
+	app->renderer->blit(img_beam, app->scene->origin + 92.0f, 241.0f, NULL);
+	app->renderer->blit(img_bar, app->scene->origin + 138.0f, 241.0f, NULL);
+	app->renderer->blit(img_p1, app->scene->origin + 32.0f, 250.0f, NULL);
+	app->renderer->blit(img_hi, app->scene->origin + 156.0f, 249.0f, NULL);
 
 	//Beam rectangle to charge
 	if (app->player->charging == true)
@@ -87,52 +84,56 @@ update_status ModuleInterface::update()
 		unsigned int max_beam = (now - app->player->start_charging) * 128 / 1200;
 		if (max_beam > 128) { max_beam = 128;}
 		for (unsigned int i = 0; i < max_beam; i++)
-			app->renderer->blit(charge_beam, position_interface + (141 + i) * SCALE_FACTOR, 243 * SCALE_FACTOR, NULL);
+			app->renderer->blit(charge_beam, app->scene->origin + (141 + i), 243.0f, NULL);
 	}
 
-	print_score(position_interface);
+	print_score(app->scene->origin);
 	
 	return UPDATE_CONTINUE;
 }
 
-void ModuleInterface::print_score(unsigned int pos)
+void ModuleInterface::print_score(float origin_pos_x)
 {
 	// Score calculation. The method calculates each number on the whole number: units, tens, hundreds, thousands and tens thousands.
+
+	float pos_y = 250.0f;
+	float number_width = 9.0f;
+	origin_pos_x += 78.0f;	
 
 	// Printing tens_thousands..
 	if (app->player->player_points > 9999)
 	{
 		numbers_points.current_frame = (app->player->player_points / 10000) % 10;
-		app->renderer->blit(img_numbers_interface, pos + 78 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
+		app->renderer->blit(img_numbers_interface, origin_pos_x, pos_y, &(numbers_points.getCurrentFrame()));
+		origin_pos_x += number_width;
 	}
 
 	// Printing thousands...
 	if (app->player->player_points > 999)
 	{
 		numbers_points.current_frame = (app->player->player_points / 1000) % 10;
-		app->renderer->blit(img_numbers_interface, pos + 87 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
+		app->renderer->blit(img_numbers_interface, origin_pos_x, pos_y, &(numbers_points.getCurrentFrame()));
+		origin_pos_x += number_width;
 	}
 
 	// Printing hundreds...
 	if (app->player->player_points > 99)
 	{
 		numbers_points.current_frame = (app->player->player_points / 100) % 10;
-		app->renderer->blit(img_numbers_interface, pos + 96 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
+		app->renderer->blit(img_numbers_interface, origin_pos_x, pos_y, &(numbers_points.getCurrentFrame()));
+		origin_pos_x += number_width;
 	}
 
 	// Printing tens...
 	if (app->player->player_points > 9)
 	{
 		numbers_points.current_frame = (app->player->player_points / 10) % 10;
-		app->renderer->blit(img_numbers_interface, pos + 105 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
+		app->renderer->blit(img_numbers_interface, origin_pos_x, pos_y, &(numbers_points.getCurrentFrame()));
+		origin_pos_x += number_width;
 	}
 
 	// Printing units
 	numbers_points.current_frame = app->player->player_points % 10;
-	app->renderer->blit(img_numbers_interface, pos + 114 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
+	app->renderer->blit(img_numbers_interface, origin_pos_x, pos_y, &(numbers_points.getCurrentFrame()));
 
-	// Code for high puntuation.
-	/*numbers_points.current_frame = 0;
-	app->renderer->blit(img_numbers_interface, pos + 230 * SCALE_FACTOR, 250 * SCALE_FACTOR, &(numbers_points.getCurrentFrame()));
-*/
 }

@@ -38,7 +38,7 @@ public:
 		anim.frames.pushBack({ 69, 2, 17, 15 });
 		anim.frames.pushBack({ 86, 2, 17, 15 });
 		anim.speed = 0.0f;
-		angle = 0;
+		angle = 0.0f;
 		life = 50000; // In miliseconds
 		graphics = texture;
 
@@ -52,7 +52,7 @@ public:
 	~BlasterEnemy()
 	{ }
 
-	void orientTo(const Point2d<int> &position_destiny)
+	void orientTo(const Point2d<float> &position_destiny)
 	{
 		// https://www.mathsisfun.com/geometry/unit-circle.html
 		// It might be helpul!
@@ -90,7 +90,7 @@ public:
 
 		orientTo(app->player->position);
 
-		if (position.y < (SCREEN_HEIGHT * SCALE_FACTOR) / 2)
+		if (position.y < (SCREEN_HEIGHT / 2))
 		{
 			if (angle >= M_PI && angle <= M_PI * 3 / 2)
 				anim.current_frame = 5;		
@@ -112,14 +112,14 @@ public:
 		time_to_attack = (SDL_GetTicks() - born) - (attacks * attack_frequency);
 		if (SDL_TICKS_PASSED(time_to_attack, attack_frequency) == true)
 		{
-			app->particles->addWeapon(BASIC_ENEMY_SHOT, position.x + 4 * SCALE_FACTOR, position.y, COLLIDER_ENEMY_SHOT);
+			app->particles->addWeapon(BASIC_ENEMY_SHOT, position.x + 4, position.y, COLLIDER_ENEMY_SHOT);
 			attacks++;
 		}
 
 		if (collider != NULL)
 		{
 			SDL_Rect r = anim.peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w, r.h};
 		}
 
 		return ret;

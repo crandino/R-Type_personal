@@ -26,7 +26,6 @@ public:
 	SDL_Texture *charge_beam;             // Beam rectangle for charging
 
 	Animation numbers_points;
-	unsigned int position_interface;
 
 	ModuleInterface(Application *app, bool start_enabled = true);
 	~ModuleInterface();
@@ -35,7 +34,7 @@ public:
 	update_status update();
 	bool cleanUp();
 
-	void print_score(unsigned int pos);
+	void print_score(float origin_pos_x);
 
 };
 

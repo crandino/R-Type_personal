@@ -26,8 +26,8 @@ public:
 		anim.frames.pushBack({ 6, 3, 21, 18 });
 		anim.frames.pushBack({ 6, 3, 21, 18 });
 		anim.speed = 0.1f;
-		speed.x = 0 * SCALE_FACTOR;
-		speed.y = 0 * SCALE_FACTOR;
+		speed.x = 0;
+		speed.y = 0;
 		life = 100000; // In miliseconds
 		graphics = texture;
 		type = MISSILE_POWERUP;
@@ -52,7 +52,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = anim.peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w , r.h  };
 		}
 
 		return ret;

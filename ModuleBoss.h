@@ -16,7 +16,7 @@
 
 struct Boss
 {
-	Point2d<int> position;
+	Point2d<float> position;
 	Animation anim;
 	Collider *col;
 	unsigned int points;
@@ -107,10 +107,10 @@ struct Antenna4 : Boss
 
 struct Tail : Boss
 {
-	DynArray<Point2d<int>> current_positions;
-	DynArray<Point2d<int>> top_positions;
-	DynArray<Point2d<int>> bottom_positions;
-	DynArray<Point2d<int>> speeds;
+	DynArray<Point2d<float>> current_positions;
+	DynArray<Point2d<float>> top_positions;
+	DynArray<Point2d<float>> bottom_positions;
+	DynArray<Point2d<float>> speeds;
 	DynArray<Collider*> colliders;
 	unsigned int num_balls;
 	bool going_up;

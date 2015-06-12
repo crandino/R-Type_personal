@@ -33,8 +33,8 @@ public:
 		anim.frames.pushBack({ 203, 6, 21, 24 });
 		anim.frames.pushBack({ 236, 6, 21, 24 });
 		anim.speed = 0.3f;
-		speed.x = -1.6 * SCALE_FACTOR;
-		speed.y = 0 * SCALE_FACTOR;
+		speed.x = -1.6f;
+		speed.y = 0.0f;
 		life = 12000; // In miliseconds
 		attack_frequency = ((rand() % 3) + 3) * 1000;
 		attacks = 0;
@@ -60,11 +60,11 @@ public:
 				ret = false;
 
 		// These variables control the oscillation of Pata.
-		float amplitude = 2;
+		float amplitude = 2.0f;
 		float frecuency = 0.0005f;
 
 		position.x += speed.x;
-		speed.y = (sin(frecuency * position.x) * amplitude) * SCALE_FACTOR;
+		speed.y = sin(frecuency * position.x) * amplitude;
 		position.y += speed.y;
 
 		// CRZ ----
@@ -73,7 +73,7 @@ public:
 		if (SDL_TICKS_PASSED(time_to_attack, attack_frequency) == true)
 		{
 			//shootAt(app->player->position);
-			app->particles->addWeapon(BASIC_ENEMY_SHOT, position.x, position.y + 10 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT);
+			app->particles->addWeapon(BASIC_ENEMY_SHOT, position.x, position.y + 10, COLLIDER_ENEMY_SHOT);
 			attacks++;
 		}
 		// ---- CRZ
@@ -81,7 +81,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = anim.peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w, r.h };
 		}
 
 		return ret;

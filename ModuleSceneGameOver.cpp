@@ -110,19 +110,19 @@ bool ModuleSceneGameOver::cleanUp()
 update_status ModuleSceneGameOver::update()
 {
 	// Draw everything
-	app->renderer->blit(graphics, 0 * SCALE_FACTOR, 0 * SCALE_FACTOR, NULL);
-	app->renderer->blit(sprite, 170 * SCALE_FACTOR, 100 * SCALE_FACTOR, &(countdown.getCurrentFrame()));
+	app->renderer->blit(graphics, 0, 0, NULL);
+	app->renderer->blit(sprite, 170, 100, &(countdown.getCurrentFrame()));
 	if (app->coins > 0)
-		app->renderer->blit(press_space_to_start, 114 * SCALE_FACTOR, 194 * SCALE_FACTOR, &(press_space_glow.getCurrentFrame()));
+		app->renderer->blit(press_space_to_start, 114, 194, &(press_space_glow.getCurrentFrame()));
 
 	// Coins visualization
 	unsigned int units = app->coins % 10;
 	numbers_coins.current_frame = units;
-	app->renderer->blit(numbers, 248 * SCALE_FACTOR, 217 * SCALE_FACTOR, &(numbers_coins.getCurrentFrame()));
+	app->renderer->blit(numbers, 248, 217, &(numbers_coins.getCurrentFrame()));
 
 	unsigned int tens = (app->coins / 10) % 100;
 	numbers_coins.current_frame = tens;
-	app->renderer->blit(numbers, 240 * SCALE_FACTOR, 217 * SCALE_FACTOR, &(numbers_coins.getCurrentFrame()));
+	app->renderer->blit(numbers, 240, 217, &(numbers_coins.getCurrentFrame()));
 
 	if (app->input->getKey(SDL_SCANCODE_C) == KEY_UP && app->coins < 99)
 	{

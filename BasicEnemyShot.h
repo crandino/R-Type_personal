@@ -34,7 +34,7 @@ public:
 	~BasicEnemyShot()
 	{ }
 
-	void orientTo(const Point2d<int> &destiny_position)
+	void orientTo(const Point2d<float> &destiny_position)
 	{
 		float dx = destiny_position.x - position.x;
 		float dy = destiny_position.y - position.y;
@@ -51,10 +51,10 @@ public:
 			angle = M_PI + angle;
 		}
 
-		int speed_value = 1.6 * SCALE_FACTOR;
+		float speed_value = 1.6;
 
-		speed.x = (int)(cos(angle) * speed_value);
-		speed.y = (int)(sin(angle) * speed_value);
+		speed.x = cos(angle) * speed_value;
+		speed.y = sin(angle) * speed_value;
 	}
 
 	bool update()
@@ -82,7 +82,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = current_animation->peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w, r.h };
 		}
 
 		return ret;

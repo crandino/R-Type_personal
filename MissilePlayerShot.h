@@ -17,7 +17,7 @@ class MissilePlayerShot : public Weapons
 
 public:
 
-	Point2d<int> prop_position;
+	Point2d<float> prop_position;
 	SDL_Texture *propulsion;
 	Animation prop_anim;
 	INT32 target_delay;
@@ -68,8 +68,8 @@ public:
 		target_fixed = false;
 		type = MISSILE_PLAYER_SHOT;
 		power = 1;
-		speed.x = 2 * SCALE_FACTOR;
-		speed.y = 0 * SCALE_FACTOR;
+		speed.x = 2;
+		speed.y = 0;
 		angle = 0.0f;
 	}
 
@@ -117,7 +117,7 @@ public:
 				angle = M_PI + angle;
 			}
 
-			int speed_value = 3 * SCALE_FACTOR;
+			int speed_value = 3;
 
 			speed.x = (int)(cos(angle) * speed_value);
 			speed.y = (int)(sin(angle) * speed_value);
@@ -130,7 +130,7 @@ public:
 
 		// We calculate the correct position of the missile propulsion, 
 		// following the missile itself;
-		int radius = 6 * SCALE_FACTOR;
+		int radius = 6;
 
 		prop_position.x = (position.x) - (cos(angle) * radius);
 		prop_position.y = (position.y) - (sin(angle) * radius);
@@ -160,7 +160,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = current_animation->peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w, r.h };
 		}
 
 		return ret;

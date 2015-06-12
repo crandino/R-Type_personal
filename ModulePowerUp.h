@@ -48,7 +48,7 @@ public:
 	bool cleanUp();
 	void onCollision(Collider *col1, Collider *col2);
 
-	void addPowerUp(POWERUP_TYPES type, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
+	void addPowerUp(POWERUP_TYPES type, float x, float y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
 
 
 };

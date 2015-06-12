@@ -9,18 +9,15 @@
 #include <stdio.h>
 
 // Game Configuration
-#define TITLE "R-TYPE"
+#define TITLE "R-TYPE - CRZ Version"
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 258
-#define SCREEN_SIZE 3
+#define SCREEN_SIZE 2
 #define WIN_FULLSCREEN false
 #define WIN_RESIZABLE false
 #define WIN_BORDERLESS false
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
-
-// Scaling factor to avoid floats...
-#define SCALE_FACTOR 100
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);
 void log(const char file[], int line, const char* format, ...);

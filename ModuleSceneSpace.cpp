@@ -43,14 +43,14 @@ bool ModuleSceneSpace::start()
 	app->particles->enable();	
 	app->audio->playMusic("Music/Level1_resmastered.ogg", 1.0f);
 
-	scroll_speed = (int)(0.50 * SCALE_FACTOR); 
-	left_limit = (10 * SCALE_FACTOR);
-	right_limit = (SCREEN_WIDTH - 42) * SCALE_FACTOR;
+	scroll_speed = 0.50f; 
+	left_limit = 10.0f;
+	right_limit = SCREEN_WIDTH - 42.0f;
 
 	// Changing origin we can go to an exact position along the level.
-	origin = 0 * SCALE_FACTOR;
-	app->renderer->camera.x = origin * (-1);
-	app->renderer->camera.y = 0 * SCALE_FACTOR;
+	origin = 0.0f;
+	app->renderer->camera.x = origin * (-1.0f);
+	app->renderer->camera.y = 0.0f;
 
 	// Wall collider
 	app->collision->addCollider({ 0, 224, 3930, 16 }, COLLIDER_WALL, false);
@@ -219,8 +219,8 @@ update_status ModuleSceneSpace::update()
 	origin += scroll_speed;
 
 	// Draw everything
-	app->renderer->blit(background, 0, 0, NULL);
-	app->renderer->blit(level1, 0, 0, NULL);
+	app->renderer->blit(background, 0.0f, 0.0f, NULL);
+	app->renderer->blit(level1, 0.0f, 0.0f, NULL);
 
 	return UPDATE_CONTINUE;
 }

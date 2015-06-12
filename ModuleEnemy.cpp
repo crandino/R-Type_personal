@@ -68,7 +68,7 @@ update_status ModuleEnemy::preUpdate()
 
 	// Adding enemies
 	
-	int wave = (app->scene->origin / SCALE_FACTOR + SCREEN_WIDTH);
+	int wave = (app->scene->origin + SCREEN_WIDTH);
 	switch (wave)
 	{
 		//  ---------------------------------------------------------------
@@ -452,7 +452,7 @@ update_status ModuleEnemy::postUpdate()
 
 		// The enemies that go 30 pixels beyond the left edge of the screen
 		// are deleted.
-		if (e->position.x < app->scene->origin - 30 * SCALE_FACTOR)
+		if (e->position.x < app->scene->origin - 30)
 		{
 			delete e;
 			active.del(tmp);
@@ -480,7 +480,7 @@ void ModuleEnemy::onCollision(Collider *c1, Collider *c2)
 	}
 }
 
-void ModuleEnemy::addEnemy(ENEMY_TYPES type, SDL_Texture *texture, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleEnemy::addEnemy(ENEMY_TYPES type, SDL_Texture *texture, float x, float y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	Enemy *e = NULL;
 
@@ -492,8 +492,8 @@ void ModuleEnemy::addEnemy(ENEMY_TYPES type, SDL_Texture *texture, int x, int y,
 	}
 
 	e->born = SDL_GetTicks() + delay;
-	e->position.x = x * SCALE_FACTOR;
-	e->position.y = y * SCALE_FACTOR;
+	e->position.x = x;
+	e->position.y = y;
 
 	if (collider_type != COLLIDER_NONE)
 	{

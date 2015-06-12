@@ -38,8 +38,8 @@ public:
 		anim.frames.pushBack({ 71, 0, 21, 20 });		
 		anim.speed = 0.2f;
 		current_animation = &anim;
-		speed.x = -3 * SCALE_FACTOR;
-		speed.y = 0 * SCALE_FACTOR;
+		speed.x = -3;
+		speed.y = 0;
 		life = 2000;
 
 		type = BOSS_WEAPON;
@@ -83,15 +83,15 @@ public:
 
 			if (dir == NONE && SDL_GetTicks() - born > dir_delay)
 			{
-				if (app->player->position.y < position.y - 25 * SCALE_FACTOR)
+				if (app->player->position.y < position.y - 25)
 				{
 					dir = UP;
-					speed.y = -0.05f * SCALE_FACTOR;
+					speed.y = -0.05f;
 				}
-				else if (app->player->position.y > position.y + 25 * SCALE_FACTOR)
+				else if (app->player->position.y > position.y + 25)
 				{
 					dir = DOWN;
-					speed.y = 0.05f * SCALE_FACTOR;
+					speed.y = 0.05f;
 				}
 				else
 				{
@@ -114,7 +114,7 @@ public:
 		if (collider != NULL)
 		{
 			SDL_Rect r = current_animation->peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w, r.h };
 		}
 
 		return ret;

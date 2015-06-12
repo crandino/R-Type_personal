@@ -17,8 +17,8 @@ public:
 	Application *app;
 
 	SDL_Texture *graphics;
-	Point2d<int> position;
-	Point2d<int> speed;
+	Point2d<float> position;
+	Point2d<float> speed;
 	Animation anim;
 	Uint32 born;
 	Uint32 life;
@@ -47,7 +47,6 @@ public:
 	}
 	
 	virtual bool update() { return true; }
-	
 };
 
 

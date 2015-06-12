@@ -50,8 +50,8 @@ public:
 		anim.speed = 0.7f;
 		second_ribbon_shot.speed = 0.17f;
 		power = 100;
-		speed.x = 0.9 * SCALE_FACTOR;
-		speed.y = 0 * SCALE_FACTOR;
+		speed.x = 0.9;
+		speed.y = 0;
 		type = RIBBON_PLAYER_SHOT;
 		current_animation = &anim;
 	}
@@ -66,19 +66,19 @@ public:
 		if (current_animation->finished() && current_animation != &second_ribbon_shot)
 		{
 			current_animation = &second_ribbon_shot;
-			position.y += 12 * SCALE_FACTOR;
-			position.x += 56 * SCALE_FACTOR;
+			position.y += 12;
+			position.x += 56;
 		}
 
 		if (current_animation == &second_ribbon_shot)
 		{
-			position.x += 5 * SCALE_FACTOR;
+			position.x += 5;
 		}
 
 		if (collider != NULL)
 		{
 			SDL_Rect r = current_animation->peekCurrentFrame();
-			collider->rect = { position.x, position.y, r.w * SCALE_FACTOR, r.h * SCALE_FACTOR };
+			collider->rect = { position.x, position.y, r.w , r.h };
 		}
 
 		return ret;

@@ -19,7 +19,7 @@
 ModuleBoss::ModuleBoss(Application *app, bool start_enabled) :
 Module(app, start_enabled)
 { 
-	stop_scrolling_position = 3929 * SCALE_FACTOR;
+	stop_scrolling_position = 3929;
 }
 
 ModuleBoss::~ModuleBoss()
@@ -36,8 +36,8 @@ bool ModuleBoss::start()
 
 	// Breeding of Dobkeratops
 	alien = new Alien();
-	alien->position.x = stop_scrolling_position - (97 * SCALE_FACTOR);
-	alien->position.y = 112 * SCALE_FACTOR;
+	alien->position.x = stop_scrolling_position - 97;
+	alien->position.y = 112;
 	boss_parts.add(alien);
 	alien->points = 300;
 	alien->last_hit_time = 0;
@@ -46,39 +46,39 @@ bool ModuleBoss::start()
 	alien->dead_time = 0;
 	// Dobkeratops itself
 	dobkeratops = new Dobkeratops();
-	dobkeratops->position.x = stop_scrolling_position - (170 * SCALE_FACTOR);
-	dobkeratops->position.y = 18 * SCALE_FACTOR;
+	dobkeratops->position.x = stop_scrolling_position - 170;
+	dobkeratops->position.y = 18;
 	boss_parts.add(dobkeratops);
 	dobkeratops->points = 5000;
 
 	// Antenna1
 	antenna1 = new Antenna1();
-	antenna1->position.x = stop_scrolling_position - (201 * SCALE_FACTOR);
-	antenna1->position.y = 15 * SCALE_FACTOR;
+	antenna1->position.x = stop_scrolling_position - 201;
+	antenna1->position.y = 15;
 
 	boss_parts.add(antenna1);
 	antenna1->points = 300;
 
 	// Antenna2
 	antenna2 = new Antenna2();
-	antenna2->position.x = stop_scrolling_position - (113 * SCALE_FACTOR);
-	antenna2->position.y = 71 * SCALE_FACTOR;
+	antenna2->position.x = stop_scrolling_position - 113;
+	antenna2->position.y = 71;
 
 	boss_parts.add(antenna2);
 	antenna2->points = 300;
 
 	// Antenna3
 	antenna3 = new Antenna3();
-	antenna3->position.x = stop_scrolling_position - (113 * SCALE_FACTOR);
-	antenna3->position.y = 144 * SCALE_FACTOR;
+	antenna3->position.x = stop_scrolling_position - 113;
+	antenna3->position.y = 144;
 
 	boss_parts.add(antenna3);
 	antenna3->points = 300;
 
 	// Antenna4
 	antenna4 = new Antenna4();
-	antenna4->position.x = stop_scrolling_position - (201 * SCALE_FACTOR);
-	antenna4->position.y = 192 * SCALE_FACTOR;
+	antenna4->position.x = stop_scrolling_position - 201;
+	antenna4->position.y = 192;
 	antenna4->points = 300;
 
 	boss_parts.add(antenna4);
@@ -90,10 +90,10 @@ bool ModuleBoss::start()
 	float incr_delta = 0.1f;
 	for (unsigned int i = 0; i < tail->num_balls; i++)
 	{
-		tail->current_positions.pushBack({ stop_scrolling_position - ((121 + (i * 7)) * SCALE_FACTOR), 195 * SCALE_FACTOR });
-		tail->top_positions.pushBack({ stop_scrolling_position - ((121 + (i * 6)) * SCALE_FACTOR), (195 - (i * 3 * incr)) * SCALE_FACTOR });
-		tail->bottom_positions.pushBack({ stop_scrolling_position - ((121 + (i * 7)) * SCALE_FACTOR), 195 * SCALE_FACTOR });
-		tail->speeds.pushBack({ 0 * SCALE_FACTOR, 0 * SCALE_FACTOR });
+		tail->current_positions.pushBack({ stop_scrolling_position - (121 + (i * 7)), 195 });
+		tail->top_positions.pushBack({ stop_scrolling_position - (121 + (i * 6)), (195 - (i * 3 * incr)) });
+		tail->bottom_positions.pushBack({ stop_scrolling_position - (121 + (i * 7)), 195 });
+		tail->speeds.pushBack({ 0 , 0 });
 
 		incr += incr_delta;
 	}
@@ -105,40 +105,40 @@ bool ModuleBoss::start()
 
 	// Adding colliders...
 	// Antenna1 
-	SDL_Rect rect_antenna1 = { stop_scrolling_position - (200 * SCALE_FACTOR), 32 * SCALE_FACTOR, 16, 16 };
+	SDL_Rect rect_antenna1 = { stop_scrolling_position - 200 , 32, 16, 16 };
 	antenna1->col = app->collision->addCollider(rect_antenna1, COLLIDER_ENEMY, true, this);
 	// Antenna2
-	SDL_Rect rect_antenna2 = { stop_scrolling_position - (113 * SCALE_FACTOR), 96 * SCALE_FACTOR, 16, 16 };
+	SDL_Rect rect_antenna2 = { stop_scrolling_position - 113, 96, 16, 16 };
 	antenna2->col = app->collision->addCollider(rect_antenna2, COLLIDER_ENEMY, true, this);
 	// Antenna3
-	SDL_Rect rect_antenna3 = { stop_scrolling_position - (113 * SCALE_FACTOR), 144 * SCALE_FACTOR, 16, 16 };
+	SDL_Rect rect_antenna3 = { stop_scrolling_position - 113, 144, 16, 16 };
 	antenna3->col = app->collision->addCollider(rect_antenna3, COLLIDER_ENEMY, true, this);
 	// Antenna4
-	SDL_Rect rect_antenna4 = { stop_scrolling_position - (200 * SCALE_FACTOR), 192 * SCALE_FACTOR, 16, 16 };
+	SDL_Rect rect_antenna4 = { stop_scrolling_position - 200, 192, 16, 16 };
 	antenna4->col = app->collision->addCollider(rect_antenna4, COLLIDER_ENEMY, true, this);
 
 	//DOBKERATOPS
 	// Head
-	SDL_Rect rect_dob_head1 = { stop_scrolling_position - (122 * SCALE_FACTOR), 18 * SCALE_FACTOR, 20, 20 };
+	SDL_Rect rect_dob_head1 = { stop_scrolling_position - 122 , 18, 20, 20 };
 	dobkeratops->col_dob_head1 = app->collision->addCollider(rect_dob_head1, COLLIDER_WALL, true, this);
 
-	SDL_Rect rect_dob_head2 = { stop_scrolling_position - (158 * SCALE_FACTOR), 38 * SCALE_FACTOR, 90, 42 };
+	SDL_Rect rect_dob_head2 = { stop_scrolling_position - 158 , 38 , 90, 42 };
 	dobkeratops->col_dob_head2 = app->collision->addCollider(rect_dob_head2, COLLIDER_WALL, true, this);
 
-	SDL_Rect rect_dob_head3 = { stop_scrolling_position - (170 * SCALE_FACTOR), 58 * SCALE_FACTOR, 16, 34 };
+	SDL_Rect rect_dob_head3 = { stop_scrolling_position - 170, 58 , 16, 34 };
 	dobkeratops->col_dob_head3 = app->collision->addCollider(rect_dob_head3, COLLIDER_WALL, true, this);
 	// Body
-	SDL_Rect rect_dob_body1 = { stop_scrolling_position - (90 * SCALE_FACTOR), 60 * SCALE_FACTOR, 70, 52 };
+	SDL_Rect rect_dob_body1 = { stop_scrolling_position - 90, 60 , 70, 52 };
 	dobkeratops->col_dob_body1 = app->collision->addCollider(rect_dob_body1, COLLIDER_WALL, true, this);
 
-	SDL_Rect rect_dob_body2 = { stop_scrolling_position - (82 * SCALE_FACTOR), 142 * SCALE_FACTOR, 62, 80 };
+	SDL_Rect rect_dob_body2 = { stop_scrolling_position - 82 , 142, 62, 80 };
 	dobkeratops->col_dob_body2 = app->collision->addCollider(rect_dob_body2, COLLIDER_WALL, true, this);
 	// Tail
-	SDL_Rect rect_dob_tail = { stop_scrolling_position - (108 * SCALE_FACTOR), 200 * SCALE_FACTOR, 50, 20 };
+	SDL_Rect rect_dob_tail = { stop_scrolling_position - 108 , 200 , 50, 20 };
 	dobkeratops->col_dob_tail = app->collision->addCollider(rect_dob_tail, COLLIDER_WALL, true, this);
 
 	//ALIEN
-	SDL_Rect rect_alien = { stop_scrolling_position - (96 * SCALE_FACTOR), 116 * SCALE_FACTOR, 50, 24 };
+	SDL_Rect rect_alien = { stop_scrolling_position - 96, 116 , 50, 24 };
 	alien->col = app->collision->addCollider(rect_alien, COLLIDER_ENEMY, true, this);
 
 	// Tail
@@ -185,7 +185,7 @@ bool ModuleBoss::cleanUp()
 update_status ModuleBoss::update()
 { 
 	//Stop the scroll
-	if ((app->scene->origin + SCREEN_WIDTH * SCALE_FACTOR) > stop_scrolling_position)
+	if ((app->scene->origin + SCREEN_WIDTH) > stop_scrolling_position)
 		app->scene->scroll_speed = 0;
 	
 	if ((int)alien->anim.current_frame == 4)
@@ -194,15 +194,15 @@ update_status ModuleBoss::update()
 	if (wait_to_shoot == false && (int)alien->anim.current_frame == 2 && alien->life > 0)
 	{
 		//Alien shot
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR , app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 80);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 160);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 240);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 320);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 400);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 480);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 560);
-		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5 * SCALE_FACTOR, app->boss->alien->position.y + 8 * SCALE_FACTOR, COLLIDER_ENEMY_SHOT, 640);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 80);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 160);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 240);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 320);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 400);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 480);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 560);
+		app->particles->addWeapon(BOSS_WEAPON, app->boss->alien->position.x - 5, app->boss->alien->position.y + 8, COLLIDER_ENEMY_SHOT, 640);
 		wait_to_shoot = true;
 	}
 
@@ -239,7 +239,7 @@ update_status ModuleBoss::update()
 
 	float dx, dy;
 	unsigned int pos_reached = 0;
-	int speed_value = 0.4 * SCALE_FACTOR;
+	int speed_value = 0.4;
 	float incr_factor = 1.1f;
 
 	for (unsigned int i = 0; i < tail->current_positions.getNumElements(); i++)
@@ -270,7 +270,7 @@ update_status ModuleBoss::update()
 
 		if (tail->going_up == true)
 		{
-			if (tail->current_positions[i].isClosedTo(tail->top_positions[i], 1.5 * SCALE_FACTOR))
+			if (tail->current_positions[i].isClosedTo(tail->top_positions[i], 1.5f))
 			{
 				tail->speeds[i].setZero();
 				pos_reached++;
@@ -284,7 +284,7 @@ update_status ModuleBoss::update()
 		}
 		else
 		{
-			if (tail->current_positions[i].isClosedTo(tail->bottom_positions[i], 1.5 * SCALE_FACTOR))
+			if (tail->current_positions[i].isClosedTo(tail->bottom_positions[i], 1.5f))
 			{
 				tail->speeds[i].setZero();
 				pos_reached++;
@@ -341,7 +341,7 @@ void ModuleBoss::onCollision(Collider *col1, Collider *col2)
 					alien->last_hit_time = SDL_GetTicks();
 					app->audio->playFx(fx_hit);
 				}
-				app->particles->addExplosion(BOSS_HIT, stop_scrolling_position - (170 * SCALE_FACTOR), 18 * SCALE_FACTOR, 0);
+				app->particles->addExplosion(BOSS_HIT, stop_scrolling_position - 170, 18 , 0);
 			}
 			if (alien->life == 0)
 			{
@@ -354,61 +354,61 @@ void ModuleBoss::onCollision(Collider *col1, Collider *col2)
 
 				//BOSS EXPLOSION
 				//Start head
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132 * SCALE_FACTOR), (4 * SCALE_FACTOR), 0);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162 * SCALE_FACTOR), (22 * SCALE_FACTOR), 300);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (22 * SCALE_FACTOR), 600);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182 * SCALE_FACTOR), (42 * SCALE_FACTOR), 900);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90 * SCALE_FACTOR), (52 * SCALE_FACTOR), 1200);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - 132, (4), 0);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162), (22), 300);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (22), 600);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182), (42), 900);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90), (52), 1200);
 				//Head 2
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132 * SCALE_FACTOR), (4 * SCALE_FACTOR), 1500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162 * SCALE_FACTOR), (22 * SCALE_FACTOR), 2100);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (22 * SCALE_FACTOR), 1700);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182 * SCALE_FACTOR), (42 * SCALE_FACTOR), 2300);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90 * SCALE_FACTOR), (52 * SCALE_FACTOR), 1900);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132), (4), 1500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162), (22), 2100);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (22), 1700);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182), (42), 2300);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90), (52), 1900);
 				//Start body
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130 * SCALE_FACTOR), (52 * SCALE_FACTOR), 1500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62 * SCALE_FACTOR), (90 * SCALE_FACTOR), 1800);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (90 * SCALE_FACTOR), 2000);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66 * SCALE_FACTOR), (126 * SCALE_FACTOR), 2200);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106 * SCALE_FACTOR), (126 * SCALE_FACTOR), 2400);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (170 * SCALE_FACTOR), 2500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122 * SCALE_FACTOR), (174 * SCALE_FACTOR), 2600);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130), (52), 1500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62), (90), 1800);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (90), 2000);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66), (126), 2200);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106), (126), 2400);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (170), 2500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122), (174), 2600);
 
 				//Head sec
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132 * SCALE_FACTOR), (4 * SCALE_FACTOR), 1200);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162 * SCALE_FACTOR), (22 * SCALE_FACTOR), 1500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (22 * SCALE_FACTOR), 1800);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182 * SCALE_FACTOR), (42 * SCALE_FACTOR), 2100);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90 * SCALE_FACTOR), (52 * SCALE_FACTOR), 2400);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132), (4), 1200);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162), (22), 1500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (22), 1800);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182), (42), 2100);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90), (52), 2400);
 				//Head 2 sec
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132 * SCALE_FACTOR), (4 * SCALE_FACTOR), 1700);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162 * SCALE_FACTOR), (22 * SCALE_FACTOR), 3300);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (22 * SCALE_FACTOR), 2900);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182 * SCALE_FACTOR), (42 * SCALE_FACTOR), 3500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90 * SCALE_FACTOR), (52 * SCALE_FACTOR), 3100);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132), (4), 1700);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162), (22), 3300);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (22), 2900);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182), (42), 3500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90), (52), 3100);
 				//Body sec
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130 * SCALE_FACTOR), (52 * SCALE_FACTOR), 4100);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62 * SCALE_FACTOR), (90 * SCALE_FACTOR), 4000);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (90 * SCALE_FACTOR), 3600);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66 * SCALE_FACTOR), (126 * SCALE_FACTOR), 3400);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106 * SCALE_FACTOR), (126 * SCALE_FACTOR), 3200);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (170 * SCALE_FACTOR), 3000);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122 * SCALE_FACTOR), (174 * SCALE_FACTOR), 2700);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130), (52), 4100);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62), (90), 4000);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (90), 3600);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66), (126), 3400);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106), (126), 3200);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (170), 3000);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122), (174), 2700);
 
 				//Head all
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132 * SCALE_FACTOR), (4 * SCALE_FACTOR), 2600);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162 * SCALE_FACTOR), (22 * SCALE_FACTOR), 2580);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (22 * SCALE_FACTOR), 2560);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182 * SCALE_FACTOR), (42 * SCALE_FACTOR), 2540);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90 * SCALE_FACTOR), (52 * SCALE_FACTOR), 2500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (132), (4), 2600);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (162), (22), 2580);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (22), 2560);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (182), (42), 2540);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (90), (52), 2500);
 				//Body all
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130 * SCALE_FACTOR), (52 * SCALE_FACTOR), 2500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62 * SCALE_FACTOR), (90 * SCALE_FACTOR), 2500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (90 * SCALE_FACTOR), 2500);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66 * SCALE_FACTOR), (126 * SCALE_FACTOR), 2540);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106 * SCALE_FACTOR), (126 * SCALE_FACTOR), 2560);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102 * SCALE_FACTOR), (170 * SCALE_FACTOR), 2580);
-				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122 * SCALE_FACTOR), (174 * SCALE_FACTOR), 2600);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (130), (52), 2500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (62), (90), 2500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (90), 2500);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (66), (126), 2540);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (106), (126), 2560);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (102), (170), 2580);
+				app->particles->addExplosion(HUGE_EXPLOSION, stop_scrolling_position - (122), (174), 2600);
 			}
 		}
 		//hil antenna col

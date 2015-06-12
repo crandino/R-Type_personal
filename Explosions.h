@@ -20,8 +20,8 @@ public:
 	Application *app;
 
 	SDL_Texture *graphics;
-	Point2d<int> position;
-	Point2d<int> speed;
+	Point2d<float> position;
+	Point2d<float> speed;
 	Animation anim;
 	Animation *current_animation;
 	Uint32 born;

@@ -184,7 +184,7 @@ update_status ModuleParticles::postUpdate()
 		Weapons *w = tmp_weapon->data;
 		tmp_weapon_next = tmp_weapon->next;
 
-		if (w->position.x > app->scene->origin + ((SCREEN_WIDTH + 30) * SCALE_FACTOR))
+		if (w->position.x > app->scene->origin + SCREEN_WIDTH + 30)
 		{
 			delete w;
 			active_weapons.del(tmp_weapon);
@@ -213,7 +213,7 @@ void ModuleParticles::onCollision(Collider *c1, Collider *c2)
 						if (app->player->charged_shot == true)
 						{
 							//Print position from charged explosion with collider shot measures and explosion measures
-							addExplosion(CHARGED_EXPLOSION, c1->rect.x + (c1->rect.w - (28 * SCALE_FACTOR)), c1->rect.y - 13 *SCALE_FACTOR);
+							addExplosion(CHARGED_EXPLOSION, c1->rect.x + (c1->rect.w - 28), c1->rect.y - 13);
 							app->audio->playFx(fx_shot_explosion);
 						}
 
@@ -263,7 +263,7 @@ void ModuleParticles::onCollision(Collider *c1, Collider *c2)
 	}
 }
 
-void ModuleParticles::addWeapon(WEAPON_TYPES type, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+void ModuleParticles::addWeapon(WEAPON_TYPES type, float x, float y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	//Add a weapon (shot) and this is added in the list of active weapons (shots)
 	Weapons *p = NULL;
@@ -309,7 +309,7 @@ void ModuleParticles::addWeapon(WEAPON_TYPES type, int x, int y, COLLIDER_TYPE c
 	}
 }
 
-void ModuleParticles::addExplosion(EXPLOSION_TYPES type, int x, int y, Uint32 delay)
+void ModuleParticles::addExplosion(EXPLOSION_TYPES type, float x, float y, Uint32 delay)
 {
 	//Add a explosion and this is added in the list of active explosions
 	Explosions *p = NULL;

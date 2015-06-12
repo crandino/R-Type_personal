@@ -18,11 +18,11 @@ public:
 	SDL_Texture *level1;
 	SDL_Texture *background;
 
-	int scroll_speed;    // Velocity to move the scenario.
-	int right_limit;	 // Screen right limit for the screen.
-	int left_limit;		 // Screen left limit for the screen.
+	float scroll_speed;      // Velocity to move the scenario.
+	float right_limit;	     // Screen right limit for the screen.
+	float left_limit;		 // Screen left limit for the screen.
 
-	int origin;          // Position reference to other modules.
+	float origin;              // Position reference to other modules.
 
 	ModuleSceneSpace(Application *app, bool start_enabled = true);
 	~ModuleSceneSpace();

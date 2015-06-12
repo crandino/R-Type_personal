@@ -11,9 +11,7 @@
 ModuleRender::ModuleRender(Application *app, bool start_enabled) : Module(app, start_enabled)
 {
 	renderer = NULL;
-	camera.x = camera.y = 0;
-	camera.w = SCREEN_WIDTH;
-	camera.h = SCREEN_HEIGHT;
+	camera.x = camera.y = 0.0f;
 }
 
 // Destructor
@@ -55,7 +53,7 @@ update_status ModuleRender::preUpdate()
 
 update_status ModuleRender::update()
 {
-	int speed = 3 * SCALE_FACTOR;
+	int speed = 3;
 
 	if (app->input->getKey(SDL_SCANCODE_KP_8) == KEY_REPEAT)
 		app->renderer->camera.y += speed;
@@ -91,15 +89,13 @@ bool ModuleRender::cleanUp()
 }
 
 //Blit to screen
-bool ModuleRender::blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, float speed)
+bool ModuleRender::blit(SDL_Texture *texture, float x, float y, SDL_Rect *section)
 {
 	bool ret = true;
 	SDL_Rect rect;
 	// Speed is eliminated from the code!!
-	rect.x = (camera.x + x) * (SCREEN_SIZE) / SCALE_FACTOR;
-	rect.y = (camera.y + y) * (SCREEN_SIZE) / SCALE_FACTOR;
-
-	//LOG("%s %d %d", "Camera:", camera.x, camera.y);
+	rect.x = (int)((camera.x + x) * (SCREEN_SIZE));
+	rect.y = (int)((camera.y + y) * (SCREEN_SIZE));
 
 	if (section != NULL)
 	{
@@ -114,6 +110,9 @@ bool ModuleRender::blit(SDL_Texture *texture, int x, int y, SDL_Rect *section, f
 
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
+
+	rect.x = int(rect.x);
+	rect.y = int(rect.y);
 
 	// It copies a portion of the texture to the current rendering target.
 	if (SDL_RenderCopy(renderer, texture, section, &rect) != 0)
@@ -135,10 +134,10 @@ bool ModuleRender::drawQuad(const SDL_Rect &rect, Uint8 r, Uint8 g, Uint8 b, Uin
 	SDL_Rect rec(rect);
 	if (use_camera)
 	{
-		rec.x = (camera.x + rect.x) * (SCREEN_SIZE) / SCALE_FACTOR;
-		rec.y = (camera.y + rect.y) * (SCREEN_SIZE) / SCALE_FACTOR;
-		rec.w = rec.w * SCREEN_SIZE / SCALE_FACTOR;
-		rec.h = rec.h * SCREEN_SIZE / SCALE_FACTOR;
+		rec.x = (camera.x + rect.x) * (SCREEN_SIZE);
+		rec.y = (camera.y + rect.y) * (SCREEN_SIZE);
+		rec.w = rec.w * SCREEN_SIZE;
+		rec.h = rec.h * SCREEN_SIZE;
 	}
 
 	if (SDL_RenderFillRect(renderer, &rec) != 0)

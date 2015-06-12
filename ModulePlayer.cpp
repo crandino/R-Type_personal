@@ -82,9 +82,9 @@ bool ModulePlayer::start()
 	active = true;
 	app->input->keyboard_enabled = true;
 
-	position.x = 50 * SCALE_FACTOR;
-	position.y = 100 * SCALE_FACTOR;
-	speed = 2 * SCALE_FACTOR;
+	position.x = 50.0f;
+	position.y = 100.0f;
+	speed = 2.0f;
 	start_charging = actual_charging = end_charging = first_sound_moment = 0;
 	charging_sound_duration = 836;
 	charged_shot = false;
@@ -164,8 +164,8 @@ void ModulePlayer::shoot()
 					//Boolean that is used in charge_basic_shot() to indicate if the first charging sound is played 
 					first_charging_sound_played = false;
 					app->audio->playFx(app->particles->fx_big_shot);
-					app->particles->addExplosion(CONTRAIL, position.x + 34 * SCALE_FACTOR, position.y);
-					app->particles->addWeapon(BASIC_PLAYER_SHOT, position.x + 22 * SCALE_FACTOR, position.y, COLLIDER_PLAYER_SHOT);
+					app->particles->addExplosion(CONTRAIL, position.x + 34, position.y);
+					app->particles->addWeapon(BASIC_PLAYER_SHOT, position.x + 22, position.y, COLLIDER_PLAYER_SHOT);
 				}
 				start_charging = actual_charging = end_charging = first_sound_moment= 0;
 				break;
@@ -173,14 +173,14 @@ void ModulePlayer::shoot()
 
 			case MISSILE_PLAYER_SHOT:
 			{
-				app->particles->addWeapon(MISSILE_PLAYER_SHOT, position.x + 10 * SCALE_FACTOR, position.y - 8 * SCALE_FACTOR, COLLIDER_PLAYER_SHOT);
-				app->particles->addWeapon(MISSILE_PLAYER_SHOT, position.x + 10 * SCALE_FACTOR, position.y + 8 * SCALE_FACTOR, COLLIDER_PLAYER_SHOT);
+				app->particles->addWeapon(MISSILE_PLAYER_SHOT, position.x + 10, position.y - 8, COLLIDER_PLAYER_SHOT);
+				app->particles->addWeapon(MISSILE_PLAYER_SHOT, position.x + 10, position.y + 8, COLLIDER_PLAYER_SHOT);
 				break;
 			}
 
 			case RIBBON_PLAYER_SHOT:
 			{
-				app->particles->addWeapon(RIBBON_PLAYER_SHOT, position.x + 11 * SCALE_FACTOR, position.y - 22 * SCALE_FACTOR, COLLIDER_RIBBON_SHOT);
+				app->particles->addWeapon(RIBBON_PLAYER_SHOT, position.x + 11, position.y - 22, COLLIDER_RIBBON_SHOT);
 				break;
 			}
 		}
@@ -197,7 +197,7 @@ void ModulePlayer::charge_basic_shot()
 		{
 			app->audio->playFx(app->particles->fx_shot);
 			charged_shot = false;
-			app->particles->addWeapon(BASIC_PLAYER_SHOT, position.x + 22 * SCALE_FACTOR, position.y + 3 * SCALE_FACTOR, COLLIDER_PLAYER_SHOT);
+			app->particles->addWeapon(BASIC_PLAYER_SHOT, position.x + 22, position.y + 3, COLLIDER_PLAYER_SHOT);
 			start_charging = SDL_GetTicks();
 			charging = true;
 		}
@@ -211,7 +211,7 @@ void ModulePlayer::charge_basic_shot()
 			//Only can render and play the animation of charging if the player push 0,2 sec CTRL
 			if (actual_charging - start_charging > 200)
 			{
-				app->renderer->blit(graphics, position.x + 30 * SCALE_FACTOR, position.y - 6 * SCALE_FACTOR, &(charging_animation.getCurrentFrame()));
+				app->renderer->blit(graphics, position.x + 30, position.y - 6, &(charging_animation.getCurrentFrame()));
 				//The sound of charge only sounds each time that finish last charging_sound. 
 				//We saved the moment that sounds the first sound and after we calcule the remainder to know if it's necessary play the next sound.
 				if (first_charging_sound_played != true)
