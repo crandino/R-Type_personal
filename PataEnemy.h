@@ -40,7 +40,7 @@ public:
 		attacks = 0;
 		graphics = texture;
 
-		points = 200;
+		score_points = 200;
 	}
 
 	~PataEnemy()

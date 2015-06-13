@@ -42,7 +42,7 @@ public:
 		life = 50000; // In miliseconds
 		graphics = texture;
 
-		points = 100;
+		score_points = 100;
 
 		attacks = 0;
 		attack_frequency = attack_frequency = ((rand() % 3) + 3) * 1000;
@@ -62,9 +62,9 @@ public:
 
 		angle = atan(dy / dx);
 
-		if (dx >= 0)
+		if (dx >= 0.0f)
 		{
-			if (dy < 0)
+			if (dy < 0.0f)
 				angle = 2.0f * M_PI + angle;
 		}
 		else
@@ -80,11 +80,6 @@ public:
 		if (life > 0)
 		{
 			if ((SDL_GetTicks() - born) > life)
-				ret = false;
-		}
-		else
-		{
-			if (anim.finished())
 				ret = false;
 		}
 

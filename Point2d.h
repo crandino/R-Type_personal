@@ -46,10 +46,10 @@ public:
 		return (*this);
 	}
 
-	const Point2d& operator*= (const Point2d &p)
+	const Point2d& operator*= (TYPE factor)
 	{
-		x *= p.x;
-		y *= p.y;
+		x *= factor;
+		y *= factor;
 		return (*this);
 	}
 

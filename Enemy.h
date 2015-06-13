@@ -21,11 +21,10 @@ public:
 	Point2d<float> speed;
 	Animation anim;
 	Uint32 born;
-	Uint32 life;
 	bool fx_played;
 	unsigned int fx;
 	Collider *collider;
-	unsigned int points;
+	unsigned int score_points;
 
 	
 	Enemy(Application *parent)
@@ -33,7 +32,6 @@ public:
 		app = parent;
 		fx = 0;
 		born = 0;
-		life = 0;
 		fx_played = false;
 		collider = NULL;
 		position.setZero();

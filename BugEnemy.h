@@ -17,24 +17,18 @@ class BugEnemy : public Enemy
 private:
 
 	float angle;
+	float speed_value;
 
 public:
 
-	float speed_value;
+	DynArray<float> first_position_paths;
+	DynArray<Point2d<float>> path;
 
-	DynArray<Point2d<float>> *path1;
-	DynArray<Point2d<float>> *path2;
-	DynArray<Point2d<float>> *path3;
-	DynArray<Point2d<float>> *path4;
-	DynArray<Point2d<float>> *path5;
-	DynArray<Point2d<float>> *path6;
-	unsigned int path_position;
-
-	DynArray<DynArray<Point2d<float>>*> path_set;
+	unsigned int path_position;	
 	unsigned int current_path;
 	bool path_found;
 
-	BugEnemy(Application *app, SDL_Texture *texture) : Enemy(app)
+	BugEnemy(Application *app, SDL_Texture *texture, float pos_x) : Enemy(app)
 	{
 		//Bug frames
 		anim.frames.pushBack({ 0, 0, 32, 32 });
@@ -54,95 +48,116 @@ public:
 		anim.frames.pushBack({ 448, 0, 32, 32 });
 		anim.frames.pushBack({ 480, 0, 32, 32 });
 
-		path1 = new DynArray<Point2d<float>>;
-		path1->pushBack({ 600 , 110 });
-		path1->pushBack({ 550 , 35 });
-		path1->pushBack({ 450 , 30 });
-		path1->pushBack({ 410 , 35 });
-		path1->pushBack({ 150 , 300 });
-		path_set.pushBack(path1);
+		// This is a dynArray with the first position of each path,
+		// that will be necessary to findPath.
 
-		path2 = new DynArray<Point2d<float>>;
-		path2->pushBack({ 1050 , 11  });
-		path2->pushBack({ 1025 , 125 });
-		path2->pushBack({ 1000 , 140 });
-		path2->pushBack({ 975 , 125 });
-		path2->pushBack({ 950 , 110 });
-		path2->pushBack({ 925 , 125 });
-		path2->pushBack({ 900 , 140 });
-		path2->pushBack({ 875 , 125 });
-		path2->pushBack({ 850 , 110 });
-		path2->pushBack({ 825 , 125 });
-		path2->pushBack({ 800 , 140 });
-		path2->pushBack({ 775 , 125 });
-		path2->pushBack({ 750 , 110 });
-		path2->pushBack({ 725 , 125 });
-		path2->pushBack({ 700 , 140 });
-		path2->pushBack({ 675 , 125 });
-		path_set.pushBack(path2);
+		first_position_paths.pushBack(600.0f);
+		first_position_paths.pushBack(1050.0f);
+		first_position_paths.pushBack(1500.0f);
+		first_position_paths.pushBack(1960.0f); 
+		first_position_paths.pushBack(2275.0f);
+		first_position_paths.pushBack(3490.0f);
 
-		path3 = new DynArray<Point2d<float>>;
-		path3->pushBack({ 1500 , 80 });
-		path3->pushBack({ 1450 , 100 });
-		path3->pushBack({ 1100 , 100 });
-		path_set.pushBack(path3);
-
-		path4 = new DynArray<Point2d<float>>;
-		path4->pushBack({ 1960 , 80 });
-		path4->pushBack({ 1940 , 90 });
-		path4->pushBack({ 1920 , 100 });
-		path4->pushBack({ 1500 , 100 });
-		path_set.pushBack(path4);
-
-		path5 = new DynArray<Point2d<float>>;
-		path5->pushBack({ 2275 , 170 });
-		path5->pushBack({ 2165 , 120 });
-		path5->pushBack({ 2120 , 80 });
-		path5->pushBack({ 2165 , 40 });
-		path5->pushBack({ 2210 , 80 });
-		path5->pushBack({ 2080 , 160 });
-		path5->pushBack({ 1800 , 160 });
-		path_set.pushBack(path5);
-
-		path6 = new DynArray<Point2d<float>>;
-		path6->pushBack({ 3490 , 70 });
-		path6->pushBack({ 3410 , 180 });
-		path6->pushBack({ 3320 , 180 });
-		path6->pushBack({ 3240 , 140 });
-		path6->pushBack({ 3100 , 30 });
-		path_set.pushBack(path6);
-
-		path_found = false;
-		current_path = 0;
-	
+		// Before creating Bug enemy, findPath method will
+		// look for the corresponding path, taking its x position
+		// as argument.
+		unsigned int path_selected = findPath(pos_x);
 		path_position = 0;
+
+		switch (path_selected)
+		{
+			case(1) :
+			{
+				// Path number 1
+				path.pushBack({ 600.0f, 110.0f });
+				path.pushBack({ 550.0f, 35.0f });
+				path.pushBack({ 450.0f, 30.0f });
+				path.pushBack({ 410.0f, 35.0f });
+				path.pushBack({ 150.0f, 300.0f });
+				break;
+			}
+			case(2) :
+			{
+				// Path number 2
+				path.pushBack({ 1050.0f, 110.0f });
+				path.pushBack({ 1025.0f, 125.0f });
+				path.pushBack({ 1000.0f, 140.0f });
+				path.pushBack({ 975.0f, 125.0f });
+				path.pushBack({ 950.0f, 110.0f });
+				path.pushBack({ 925.0f, 125.0f });
+				path.pushBack({ 900.0f, 140.0f });
+				path.pushBack({ 875.0f, 125.0f });
+				path.pushBack({ 850.0f, 110.0f });
+				path.pushBack({ 825.0f, 125.0f });
+				path.pushBack({ 800.0f, 140.0f });
+				path.pushBack({ 775.0f, 125.0f });
+				path.pushBack({ 750.0f, 110.0f });
+				path.pushBack({ 725.0f, 125.0f });
+				path.pushBack({ 700.0f, 140.0f });
+				path.pushBack({ 675.0f, 125.0f });
+				break;
+			}
+			case(3) :
+			{
+				// Path number 3
+				path.pushBack({ 1500.0f, 80.0f });
+				path.pushBack({ 1450.0f, 100.0f });
+				path.pushBack({ 1100.0f, 100.0f });
+				break;
+			}
+			case(4) :
+			{
+				// Path number 4
+				path.pushBack({ 1960.0f, 80.0f });
+				path.pushBack({ 1940.0f, 90.0f });
+				path.pushBack({ 1920.0f, 100.0f });
+				path.pushBack({ 1500.0f, 100.0f });
+				break;
+			}
+			case(5) :
+			{
+				// Path number 5
+				path.pushBack({ 2275.0f, 170.0f });
+				path.pushBack({ 2165.0f, 120.0f });
+				path.pushBack({ 2120.0f, 80.0f });
+				path.pushBack({ 2165.0f, 40.0f });
+				path.pushBack({ 2210.0f, 80.0f });
+				path.pushBack({ 2080.0f, 160.0f });
+				path.pushBack({ 1800.0f, 160.0f });
+				break;
+			}
+			case(6) :
+			{
+				// Path number 6
+				path.pushBack({ 3490.0f, 70.0f });
+				path.pushBack({ 3410.0f, 180.0f });
+				path.pushBack({ 3320.0f, 180.0f });
+				path.pushBack({ 3240.0f, 140.0f });
+				path.pushBack({ 3100.0f, 30.0f });
+				break;
+			}
+		}
+		
 		anim.speed = 0.0f;
 		speed_value = 2.0f;
-		angle = 0;
-		life = 50000; // In miliseconds
+		angle = 0.0f;
 		graphics = texture;
 
-		points = 200;
+		score_points = 200;
 	}
 
 	~BugEnemy()
-	{
-		for (unsigned int i = 0; i < path_set.getNumElements(); i++)
-		{
-			delete path_set[i];
-		}
-	}
+	{ }
 
-	bool findPath()
+	unsigned int findPath(float position_x) const
 	{
-		DynArray<Point2d<float>> *tmp;
-		for (unsigned int i = 0; i < path_set.getNumElements(); i++)
+		unsigned int path_selected = 0;
+		for (unsigned int i = 0; i < first_position_paths.getNumElements(); i++)
 		{
-			tmp = path_set[i];
-			if ( (*tmp)[0].x <= position.x)
-				current_path = i;
+			if ( first_position_paths[i] <= position_x)
+				path_selected = i + 1;
 		}
-		return true;
+		return path_selected;
 	}
 
 	void orientTo(const Point2d<float> &position_destiny)
@@ -171,32 +186,18 @@ public:
 
 	bool update()
 	{
-		bool ret = true;
+		bool ret = true;	
 
-		if (path_found != true)
-			path_found = findPath();
-
-		if (life > 0)
-		{
-			if ((SDL_GetTicks() - born) > life)
-				ret = false;
-		}
-		else
-		{
-			if (anim.finished())
-				ret = false;
-		}		
-
-		if (position.isClosedTo((*path_set[current_path])[path_position], 1.0f ))
+		if (position.isClosedTo(path[path_position], 1.0f))
 		{ 		
-			if (path_position < (*path_set[current_path]).getNumElements() - 1)
+			if (path_position < path.getNumElements() - 1)
 				path_position++;
 			else
 				speed.x = speed.y = 0;
 		}
 		else
 		{
-			orientTo((*path_set[current_path])[path_position]);
+			orientTo(path[path_position]);
 		}		
 
 		position.x += speed.x;

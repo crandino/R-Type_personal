@@ -472,7 +472,7 @@ void ModuleEnemy::onCollision(Collider *c1, Collider *c2)
 
 	if (item != NULL)
 	{
-		app->player->player_points += item->data->points;
+		app->player->player_points += item->data->score_points;
 		app->particles->addExplosion(COMMON_EXPLOSION, c1->rect.x, c1->rect.y);
 		app->audio->playFx(fx_pata_explosion);
 		delete item->data;
@@ -487,7 +487,7 @@ void ModuleEnemy::addEnemy(ENEMY_TYPES type, SDL_Texture *texture, float x, floa
 	switch (type)
 	{
 	case(PATA_ENEMY) : e = new PataEnemy(app, texture); break;
-	case(BUG_ENEMY) : e = new BugEnemy(app, texture); break;
+	case(BUG_ENEMY) : e = new BugEnemy(app, texture, x); break;
 	case(BLASTER_ENEMY) : e = new BlasterEnemy(app, texture); break;
 	}
 
