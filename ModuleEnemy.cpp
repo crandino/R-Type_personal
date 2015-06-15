@@ -68,7 +68,7 @@ update_status ModuleEnemy::preUpdate()
 
 	// Adding enemies
 	
-	int wave = (app->scene->origin + SCREEN_WIDTH);
+	int wave = (int)(app->scene->origin + SCREEN_WIDTH);
 	switch (wave)
 	{
 		//  ---------------------------------------------------------------

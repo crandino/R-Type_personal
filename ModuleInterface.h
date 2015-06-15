@@ -35,7 +35,6 @@ public:
 	bool cleanUp();
 
 	void print_score(float origin_pos_x);
-
 };
 
 #endif // !__MODULEINTERFACE_H__
